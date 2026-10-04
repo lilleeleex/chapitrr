@@ -58,7 +58,7 @@ La landing collecte prénom, email, intention, genre et réponses au quiz. Il fa
 
 Le hero est un slider de 3 polaroids, une photo par étape. Il défile seul pendant deux tours, puis s'arrête. Il s'arrête aussi dès qu'on clique, et au survol. Il ne défile jamais si l'utilisateur a demandé moins d'animations.
 
-1. Le livre arrive : `photo-1604648717742-f93ce63fc25c` (livre emballé, ruban rouge)
+1. Le livre arrive : Unsplash `photo-1776278726433-1cd96688ca7d` (un livre jaune vif sorti d'un colis en carton, mur bleu)
 2. Dix jours pour le lire : Pexels `6496136` (une femme noire à lunettes, en pull rouge, sourit en lisant)
 3. On passe à table : Pexels `6954047` (2 femmes et 2 hommes qui trinquent de part et d'autre de la table, à la bougie)
 
