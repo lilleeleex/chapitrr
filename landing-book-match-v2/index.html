@@ -60,26 +60,26 @@
 
       <div class="hero-visual">
         <div class="stack-wrap">
-          <div class="polaroid-stack" id="heroSlider" role="group" aria-roledescription="carrousel" aria-label="Les 3 étapes en photos">
+          <div class="polaroid-stack" id="heroSlider" role="group" aria-roledescription="carrousel" aria-label="Le parcours en photos">
             <figure class="polaroid" data-pos="0">
               <img src="https://images.unsplash.com/photo-1776278726433-1cd96688ca7d?auto=format&fit=crop&w=1200&h=800&q=80" alt="Deux mains sortent d’un colis en carton un livre à la couverture jaune vif, devant un mur bleu" width="1200" height="800">
-              <figcaption class="hand"><span class="cap-num">1</span> le livre arrive</figcaption>
+              <figcaption class="hand">le livre arrive</figcaption>
             </figure>
             <figure class="polaroid" data-pos="1" aria-hidden="true">
               <img src="https://images.pexels.com/photos/6496136/pexels-photo-6496136.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=800" alt="Une jeune femme à lunettes, en pull rouge, sourit en lisant un livre près d’une fenêtre" width="1200" height="800">
-              <figcaption class="hand"><span class="cap-num">2</span> dix jours pour le lire</figcaption>
+              <figcaption class="hand">dix jours pour le lire</figcaption>
             </figure>
             <figure class="polaroid" data-pos="2" aria-hidden="true">
               <img src="https://images.pexels.com/photos/6954047/pexels-photo-6954047.jpeg?auto=compress&cs=tinysrgb&fit=crop&w=1200&h=800" alt="Deux femmes et deux hommes trinquent de part et d’autre d’une table de dîner éclairée à la bougie" width="1200" height="800">
-              <figcaption class="hand"><span class="cap-num">3</span> on passe à table</figcaption>
+              <figcaption class="hand">on passe à table</figcaption>
             </figure>
           </div>
           <p class="sticky-note"><span class="hand">1<sup>re</sup> édition</span> <strong>Auxerre · 2026</strong></p>
         </div>
-        <div class="slider-nav" role="group" aria-label="Choisir une étape">
-          <button class="slider-dot" type="button" aria-pressed="true" aria-label="Étape 1 : le livre arrive">1</button>
-          <button class="slider-dot" type="button" aria-pressed="false" aria-label="Étape 2 : dix jours pour le lire">2</button>
-          <button class="slider-dot" type="button" aria-pressed="false" aria-label="Étape 3 : on passe à table">3</button>
+        <div class="slider-nav" role="group" aria-label="Choisir une photo">
+          <button class="slider-dot" type="button" aria-pressed="true" aria-label="Photo 1 : le livre arrive">1</button>
+          <button class="slider-dot" type="button" aria-pressed="false" aria-label="Photo 2 : dix jours pour le lire">2</button>
+          <button class="slider-dot" type="button" aria-pressed="false" aria-label="Photo 3 : on passe à table">3</button>
         </div>
       </div>
     </section>
@@ -87,31 +87,40 @@
     <section class="section how" id="comment" aria-labelledby="how-title">
       <div class="section-head">
         <h2 id="how-title">Comment ça marche&nbsp;?</h2>
-        <p class="note hand">Trois étapes. Pas une de plus.</p>
+        <p class="note hand">Quatre étapes. Pas une de plus.</p>
       </div>
 
       <ol class="steps">
         <li class="step">
           <div class="step-top">
             <span class="step-num" aria-hidden="true">1</span>
-            <svg class="doodle" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 18c-8-5-17-6-26-3v35c9-3 18-2 26 3 8-5 17-6 26-3V15c-9-3-18-2-26 3z"/><path d="M32 18v35"/><path d="M12 25c5-1 10 0 14 2M12 33c5-1 10 0 14 2M38 27c4-2 9-3 14-2M38 35c4-2 9-3 14-2"/></svg>
+            <svg class="doodle" viewBox="0 0 64 64" aria-hidden="true"><circle cx="32" cy="32" r="12"/><path d="M26 32l4.5 4.5 8-9"/><circle cx="32" cy="8" r="5"/><circle cx="56" cy="32" r="5"/><circle cx="32" cy="56" r="5"/><circle cx="8" cy="32" r="5"/></svg>
           </div>
-          <p class="step-when hand">Au départ</p>
-          <h3>Le livre arrive</h3>
-          <p>3 personnes de votre ville, que vous ne connaissez pas, reçoivent le même livre que vous. 100&nbsp;pages maximum, mais <mark>court ne veut pas dire léger</mark>&nbsp;: une histoire qui a du fond, choisie pour ce qu’elle remue en chacun.</p>
+          <p class="step-when hand">Pour commencer</p>
+          <h3>Votre table, votre livre</h3>
+          <p>À partir de votre profil, nous composons une table de 4&nbsp;personnes de votre ville. Puis nous choisissons un livre <mark>selon les centres d’intérêt de chacun</mark>.</p>
         </li>
         <li class="step">
           <div class="step-top">
             <span class="step-num" aria-hidden="true">2</span>
-            <svg class="doodle" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="12" width="48" height="44" rx="7"/><path d="M8 25h48M21 6v12M43 6v12"/><path d="M17 37l4 4 8-9"/><path d="M36 36h11M17 48h11M36 48h11"/></svg>
+            <svg class="doodle" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 18c-8-5-17-6-26-3v35c9-3 18-2 26 3 8-5 17-6 26-3V15c-9-3-18-2-26 3z"/><path d="M32 18v35"/><path d="M12 25c5-1 10 0 14 2M12 33c5-1 10 0 14 2M38 27c4-2 9-3 14-2M38 35c4-2 9-3 14-2"/></svg>
           </div>
-          <p class="step-when hand">Pendant 10&nbsp;jours</p>
-          <h3>Vous lisez</h3>
-          <p>Environ 10&nbsp;pages par jour. En chemin, quelques questions viennent ponctuer la lecture. <mark>Pas des questions quelconques</mark>&nbsp;: des questions inattendues, qui font réfléchir et préparent la rencontre.</p>
+          <p class="step-when hand">Top départ</p>
+          <h3>Le livre arrive</h3>
+          <p>Le même livre est livré chez chaque membre du groupe. 100&nbsp;pages maximum, mais <mark>court ne veut pas dire léger</mark>&nbsp;: une histoire qui a du fond et qui ne laisse pas indifférent.</p>
         </li>
         <li class="step">
           <div class="step-top">
             <span class="step-num" aria-hidden="true">3</span>
+            <svg class="doodle" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="12" width="48" height="44" rx="7"/><path d="M8 25h48M21 6v12M43 6v12"/><path d="M17 37l4 4 8-9"/><path d="M36 36h11M17 48h11M36 48h11"/></svg>
+          </div>
+          <p class="step-when hand">Pendant 10&nbsp;jours</p>
+          <h3>Vous lisez</h3>
+          <p>Environ 10&nbsp;pages par jour. En chemin, l'app ponctue la lecture par quelques questions. <mark>Pas des questions quelconques</mark>&nbsp;: des questions inattendues, qui font réfléchir et préparent la rencontre.</p>
+        </li>
+        <li class="step">
+          <div class="step-top">
+            <span class="step-num" aria-hidden="true">4</span>
             <svg class="doodle" viewBox="0 0 64 64" aria-hidden="true"><circle cx="34" cy="34" r="16"/><circle cx="34" cy="34" r="9"/><path d="M8 12v11c0 3 2 5 4 5v24M12 12v10M16 12v11c0 3-2 5-4 5"/><path d="M58 12c-5 3-6 10-6 18h6v22"/></svg>
           </div>
           <p class="step-when hand">Le jour&nbsp;J</p>

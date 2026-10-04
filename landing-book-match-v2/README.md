@@ -7,7 +7,7 @@ Deuxième version de la landing. La v1 reste intacte dans `../landing-book-match
 - **La formule est dans le hero** : « 4 personnes + 1 livre + 10 jours = 1 dîner », en très gros. En v1 elle était tout en bas.
 - **Typo plus détendue** : Fraunces en version « soft » et « wonky » pour les titres, Caveat (manuscrite) pour les notes dans la marge, Figtree pour le texte. Playfair Display disparaît.
 - **L'essentiel est surligné**, comme dans un livre annoté : surligneur jaune, cercles et flèches dessinés à la main, post-it « 1re édition · Auxerre 2026 ».
-- **Un ordre plus logique** : hero → comment ça marche (3 étapes) → l'idée → quiz → inscription. Le quiz arrive après l'explication et mène à l'inscription.
+- **Un ordre plus logique** : hero → comment ça marche (4 étapes) → l'idée → quiz → inscription. Le quiz arrive après l'explication et mène à l'inscription.
 - **Le bouton « Je veux participer » est partout** : barre du haut collante, hero, après les étapes, fin du quiz.
 - **Des questions pensées pour le test** : chaque question du quiz et du formulaire alimente une couche du matching ou une hypothèse à valider (voir plus bas).
 
@@ -56,7 +56,7 @@ La landing collecte prénom, email, intention, genre et réponses au quiz. Il fa
 
 ## Photos du hero
 
-Le hero est un slider de 3 polaroids, une photo par étape. Il défile seul pendant deux tours, puis s'arrête. Il s'arrête aussi dès qu'on clique, et au survol. Il ne défile jamais si l'utilisateur a demandé moins d'animations.
+Le hero est un slider de 3 polaroids qui illustrent les étapes 2 à 4 : le livre qui arrive, la lecture, le dîner. Il défile seul pendant deux tours, puis s'arrête. Il s'arrête aussi dès qu'on clique, et au survol. Il ne défile jamais si l'utilisateur a demandé moins d'animations.
 
 1. Le livre arrive : Unsplash `photo-1776278726433-1cd96688ca7d` (un livre jaune vif sorti d'un colis en carton, mur bleu)
 2. Dix jours pour le lire : Pexels `6496136` (une femme noire à lunettes, en pull rouge, sourit en lisant)
