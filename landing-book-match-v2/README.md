@@ -60,6 +60,6 @@ Le hero est un slider de 3 polaroids, une photo par étape. Il défile seul pend
 
 1. Le livre arrive : `photo-1604648717742-f93ce63fc25c` (livre emballé, ruban rouge)
 2. Dix jours pour le lire : `photo-1512508561942-18fbe6d5d0cf`, zoomée pour sortir du cadre des couvertures de livres en anglais
-3. On passe à table : `photo-1683538185904-4dc847308479` (2 hommes face à 2 femmes). Photo de jour, réchauffée en CSS (classe `.warm` dans `styles.css`). Pour la production, mieux vaut appliquer ce réglage directement sur le fichier image.
+3. On passe à table : Pexels `6954047` (2 femmes et 2 hommes qui trinquent de part et d'autre de la table, à la bougie)
 
-Ce sont des photos Unsplash gratuites, chargées depuis leur CDN pour le prototype. Pour la production, télécharge-les (ou remplace-les par tes propres photos) et vérifie la licence et les droits à l'image des personnes visibles.
+Ce sont des photos gratuites (Unsplash pour les deux premières, Pexels pour la troisième), chargées depuis leur CDN pour le prototype. Pour la production, télécharge-les (ou remplace-les par tes propres photos) et vérifie la licence et les droits à l'image des personnes visibles.
