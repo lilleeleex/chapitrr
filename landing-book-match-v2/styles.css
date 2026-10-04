@@ -212,13 +212,13 @@ h1 { max-width: 13ch; margin-bottom: clamp(22px, 3vw, 34px); font-size: clamp(42
 
 .sticky-note {
   position: absolute; left: -48px; bottom: 96px; z-index: 6;
-  width: 152px; padding: 18px 14px 16px;
+  padding: 16px 18px 14px;
   background: var(--hl); color: var(--ink); text-align: center;
   transform: rotate(-7deg);
   box-shadow: 0 12px 24px rgb(30 27 23 / .16);
 }
 .sticky-note .hand { display: block; font-size: 28px; }
-.sticky-note strong { display: block; margin-top: 4px; font: 800 19px/1.1 var(--display); font-variation-settings: "SOFT" 100, "WONK" 1; }
+.sticky-note strong { display: block; margin-top: 4px; white-space: nowrap; font: 800 19px/1.1 var(--display); font-variation-settings: "SOFT" 100, "WONK" 1; }
 
 /* ---------- Sections ---------- */
 .section { padding: clamp(72px, 10vw, 136px) var(--gutter); }
@@ -250,7 +250,25 @@ h1 { max-width: 13ch; margin-bottom: clamp(22px, 3vw, 34px); font-size: clamp(42
 .idea-kicker { margin-bottom: 8px; font-size: clamp(26px, 2.4vw, 32px); color: var(--tomato-deep); }
 .idea h2 { font-size: clamp(38px, 4.8vw, 70px); }
 .idea-body > p:first-child { font-size: clamp(18px, 1.4vw, 20px); color: var(--ink-soft); }
-.idea-hand { margin-top: 22px; font-size: clamp(30px, 2.8vw, 40px); color: var(--tomato-deep); transform: rotate(-2deg); }
+.idea-hand { max-width: 1180px; margin: clamp(36px, 4vw, 56px) auto 0; font-size: clamp(30px, 2.8vw, 40px); color: var(--tomato-deep); text-align: center; transform: rotate(-1.5deg); }
+.idea-points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: clamp(20px, 3vw, 40px); max-width: 1180px; margin: clamp(40px, 5vw, 64px) auto 0; }
+.idea-point { padding: clamp(24px, 3vw, 40px); background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 6px 6px 0 var(--ink); }
+.idea-point:nth-child(1) { transform: rotate(-.6deg); }
+.idea-point:nth-child(2) { transform: rotate(.6deg); }
+.idea-point h3 { margin: 18px 0 14px; font-size: clamp(28px, 2.6vw, 38px); }
+.idea-point p { color: var(--ink-soft); }
+.idea-point p + p, .idea-point .levels + p { margin-top: 14px; }
+.idea-point strong { color: var(--ink); }
+.match-doodle, .dinner-doodle { width: min(100%, 230px); height: auto; overflow: visible; }
+.md-table { fill: none; stroke: var(--tomato); stroke-width: 2.5; stroke-dasharray: 7 7; }
+.md-link { fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: round; opacity: .55; }
+.md-dot { fill: var(--hl); stroke: var(--ink); stroke-width: 2.5; }
+.md-alt { fill: var(--sage); }
+.dinner-doodle path { fill: none; stroke: var(--ink); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+.dinner-doodle .dd-spark { stroke: var(--tomato); stroke-width: 3; }
+.levels { display: grid; gap: 12px; margin: 14px 0 0; padding: 0; list-style: none; }
+.levels li { display: grid; grid-template-columns: 38px minmax(0, 1fr); align-items: start; gap: 12px; }
+.level-num { display: grid; place-items: center; width: 38px; height: 38px; border: 2px solid var(--ink); border-radius: 50%; background: var(--hl); font-size: 24px; color: var(--ink); }
 
 /* Quiz */
 .quiz { background: var(--paper-2); }
@@ -306,8 +324,6 @@ h1 { max-width: 13ch; margin-bottom: clamp(22px, 3vw, 34px); font-size: clamp(42
 }
 .field input::placeholder { color: #7d7466; }
 .field-help { margin: -2px 0 12px; font-size: 16px; color: var(--ink-soft); }
-.field .consent { display: flex; align-items: flex-start; gap: 10px; margin: 16px 0 0; font-weight: 500; font-size: 16px; cursor: pointer; }
-.consent input { flex: none; width: 22px; height: 22px; margin: 1px 0 0; accent-color: var(--ink); cursor: pointer; }
 .chips { display: flex; flex-wrap: wrap; gap: 10px; }
 .chip { position: relative; display: inline-flex; }
 .chip input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
@@ -342,6 +358,7 @@ h1 { max-width: 13ch; margin-bottom: clamp(22px, 3vw, 34px); font-size: clamp(42
   .steps { grid-template-columns: 1fr; max-width: 560px; }
   .step:nth-child(2) { transform: rotate(.9deg); }
   .idea-inner { grid-template-columns: 1fr; }
+  .idea-points { grid-template-columns: 1fr; max-width: 640px; }
 }
 @media (max-width: 760px) {
   .nav-link { display: none; }

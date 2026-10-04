@@ -4,7 +4,7 @@
 // Chaque question nourrit une couche du matching :
 // - couche 1, compatibilité individuelle (A ↔ B) : "affinites"
 // - couche 2, compatibilité du groupe de quatre : "role", "ambiance", "lecture"
-// La question finale du formulaire couvre la dimension dating : intention, genre, attirance.
+// Le formulaire ajoute l'intention (amour, amitié…) et le genre. L'attirance sera demandée dans l'application.
 
 const questions = [
   {
@@ -145,15 +145,6 @@ $("quizRestart").addEventListener("click", () => {
 // Inscription
 const form = $("signupForm");
 const success = $("signupSuccess");
-const romanceField = $("romanceField");
-
-// La question « Côté cœur » n'apparaît que si l'amour fait partie du programme.
-form.addEventListener("change", event => {
-  if (event.target.name !== "intent") return;
-  const romance = ["amour", "ouvert"].includes(event.target.value);
-  romanceField.hidden = !romance;
-  romanceField.disabled = !romance;
-});
 
 form.addEventListener("submit", async event => {
   event.preventDefault();
@@ -163,8 +154,6 @@ form.addEventListener("submit", async event => {
     email: form.elements.email.value.trim(),
     intent: data.get("intent"),
     gender: data.get("gender"),
-    lookingFor: data.get("lookingFor"), // null si l'amour n'est pas au programme
-    consent: data.get("consent") === "oui",
     answers: Object.fromEntries(answers.filter(Boolean).map(a => [a.id, a.value]))
   };
 

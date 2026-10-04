@@ -6,7 +6,7 @@ Deuxième version de la landing. La v1 reste intacte dans `../landing-book-match
 
 - **La formule est dans le hero** : « 4 personnes + 1 livre + 10 jours = 1 dîner », en très gros. En v1 elle était tout en bas.
 - **Typo plus détendue** : Fraunces en version « soft » et « wonky » pour les titres, Caveat (manuscrite) pour les notes dans la marge, Figtree pour le texte. Playfair Display disparaît.
-- **L'essentiel est surligné**, comme dans un livre annoté : surligneur jaune, cercles et flèches dessinés à la main, post-it « 1re édition · Paris 2026 ».
+- **L'essentiel est surligné**, comme dans un livre annoté : surligneur jaune, cercles et flèches dessinés à la main, post-it « 1re édition · Auxerre 2026 ».
 - **Un ordre plus logique** : hero → comment ça marche (3 étapes) → l'idée → quiz → inscription. Le quiz arrive après l'explication et mène à l'inscription.
 - **Le bouton « Je veux participer » est partout** : barre du haut collante, hero, après les étapes, fin du quiz.
 - **Des questions pensées pour le test** : chaque question du quiz et du formulaire alimente une couche du matching ou une hypothèse à valider (voir plus bas).
@@ -21,7 +21,6 @@ Deuxième version de la landing. La v1 reste intacte dans `../landing-book-match
 | Quiz 4 — « 100 pages en 10 jours, pour vous c'est… » | L'habitude de lecture et la perception de l'effort | Test du concept (la lecture fait-elle peur ?) et tables où tout le monde aura lu |
 | Formulaire — « Qu'est-ce que vous venez chercher autour de la table ? » | Amour, amitié, les deux, ou juste une belle soirée | Test du positionnement (dating ou social ?) et dimension dating |
 | Formulaire — « Vous êtes… » | Le genre | Ratio femmes / hommes réel des inscrits : la parité 2F/2H est-elle tenable ? |
-| Formulaire — « Côté cœur, vous aimeriez rencontrer… » (si amour ou les deux) | L'attirance | Potentiel romantique au sein d'une table |
 
 ## Lancer en local
 
@@ -43,23 +42,23 @@ Payload envoyé :
   "email": "camille@example.com",
   "intent": "amour | amitie | ouvert | soiree",
   "gender": "femme | homme | autre | non-precise",
-  "lookingFor": "hommes | femmes | tous | null",
-  "consent": true,
   "answers": { "role": "ecoute", "ambiance": "debat", "affinites": "humour", "lecture": "faisable" }
 }
 ```
 
-`lookingFor` vaut `null` si l'amour n'est pas au programme. `answers` est vide si la personne n'a pas fait le quiz, ce qui est aussi une donnée (taux de complétion du quiz).
+`answers` est vide si la personne n'a pas fait le quiz, ce qui est aussi une donnée (taux de complétion du quiz).
 
 ## RGPD
 
-Le genre combiné à « Côté cœur » révèle l'orientation sexuelle : c'est une donnée sensible (RGPD, article 9). La case de consentement explicite est déjà là. Il faut encore une politique de confidentialité avant la mise en ligne.
+La question sur l'attirance (« vous aimeriez rencontrer des hommes, des femmes… ») sera posée dans l'application, pas sur la landing. Combinée au genre, elle révèle l'orientation sexuelle, une donnée sensible (RGPD, article 9) : c'est dans l'app qu'il faudra un consentement explicite.
+
+La landing collecte prénom, email, intention, genre et réponses au quiz. Il faut quand même une politique de confidentialité avant la mise en ligne.
 
 ## Photos du hero
 
 Le hero est un slider de 3 polaroids, une photo par étape. Il défile seul pendant deux tours, puis s'arrête. Il s'arrête aussi dès qu'on clique, et au survol. Il ne défile jamais si l'utilisateur a demandé moins d'animations.
 
-1. Le livre arrive : `photo-1613335873498-ac42de392672`, zoomée (paramètres `fp-*` dans l'URL) pour sortir du cadre un livre ouvert en anglais
+1. Le livre arrive : `photo-1604648717742-f93ce63fc25c` (livre emballé, ruban rouge)
 2. Dix jours pour le lire : `photo-1512508561942-18fbe6d5d0cf`, zoomée pour sortir du cadre des couvertures de livres en anglais
 3. On passe à table : `photo-1683538185904-4dc847308479` (2 hommes face à 2 femmes). Photo de jour, réchauffée en CSS (classe `.warm` dans `styles.css`). Pour la production, mieux vaut appliquer ce réglage directement sur le fichier image.
 
