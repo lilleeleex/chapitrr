@@ -142,30 +142,79 @@ $("quizRestart").addEventListener("click", () => {
   stage.querySelector(".q-title").focus({ preventScroll: true });
 });
 
-// Inscription
+// Inscription : envoi à Formspree (adresse dans l'attribut action du formulaire).
+// Sans JavaScript, le formulaire part quand même en HTML classique, avec les mêmes noms de champs.
+// Tous les champs sont à plat (pas de JSON imbriqué) : chacun arrive séparément dans Formspree.
 const form = $("signupForm");
 const success = $("signupSuccess");
+const formError = $("signupError");
+const submitBtn = form.querySelector('[type="submit"]');
+const submitLabel = submitBtn.querySelector(".btn-label");
+
+const LANDING_VERSION = "v2"; // pour comparer plusieurs versions de la landing dans Formspree
+const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+
+function buildSubmission() {
+  const data = new FormData(form); // prenom, email, intention, genre, _gotcha
+  const prenom = form.elements.prenom.value.trim();
+  data.set("prenom", prenom);
+  data.set("email", form.elements.email.value.trim());
+
+  // Réponses du quiz, seulement celles qui ont été données
+  const answered = answers.filter(Boolean);
+  let quizStatus = "non fait";
+  if (answered.length === questions.length) quizStatus = "complet";
+  else if (answered.length > 0) quizStatus = "partiel";
+  data.append("quiz_statut", quizStatus);
+  answered.forEach(a => data.append(`quiz_${a.id}`, a.value));
+
+  // Provenance du visiteur, si le lien partagé contient des paramètres UTM
+  data.append("landing", LANDING_VERSION);
+  const params = new URLSearchParams(window.location.search);
+  UTM_KEYS.forEach(key => {
+    const value = params.get(key);
+    if (value) data.append(key, value);
+  });
+
+  data.append("_subject", `Nouvelle inscription : ${prenom}`); // objet de l'email de notification
+  return data;
+}
+
+function setSending(sending) {
+  submitBtn.disabled = sending;
+  submitBtn.setAttribute("aria-busy", String(sending));
+  submitLabel.textContent = sending ? "Envoi en cours…" : "Je veux participer";
+}
 
 form.addEventListener("submit", async event => {
   event.preventDefault();
-  const data = new FormData(form);
-  const payload = {
-    firstName: form.elements.firstName.value.trim(),
-    email: form.elements.email.value.trim(),
-    intent: data.get("intent"),
-    gender: data.get("gender"),
-    answers: Object.fromEntries(answers.filter(Boolean).map(a => [a.id, a.value]))
-  };
+  formError.hidden = true;
+  setSending(true);
+  const data = buildSubmission();
 
-  // Brancher ici l'endpoint NestJS, par exemple :
-  // await fetch("/api/signups", {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify(payload)
-  // });
-  console.log("Inscription chapitre. :", payload);
+  try {
+    const response = await fetch(form.action, {
+      method: "POST",
+      body: data,
+      headers: { Accept: "application/json" }
+    });
+    if (!response.ok) {
+      const body = await response.json().catch(() => ({}));
+      const details = (body.errors || []).map(e => e.message).join(", ");
+      throw new Error(details || `HTTP ${response.status}`);
+    }
+  } catch (error) {
+    console.error("Inscription non envoyée :", error);
+    // fetch lève une TypeError quand le réseau ne répond pas ; les autres erreurs viennent de Formspree
+    formError.textContent = error instanceof TypeError
+      ? "Oups, l’inscription n’est pas partie. Vérifiez votre connexion et réessayez."
+      : "Oups, l’inscription n’est pas partie. Réessayez dans un instant.";
+    formError.hidden = false;
+    setSending(false);
+    return;
+  }
 
-  $("successName").textContent = payload.firstName;
+  $("successName").textContent = data.get("prenom");
   form.hidden = true;
   success.hidden = false;
   success.focus();

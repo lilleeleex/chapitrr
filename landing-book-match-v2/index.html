@@ -211,10 +211,10 @@
         <h2 id="signup-title">Vous voulez <em>essayer</em>&nbsp;?</h2>
         <p class="section-lead">Nous préparons la première expérience à Auxerre. Laissez-nous votre email et soyez parmi les premiers à la découvrir.</p>
 
-        <form class="signup-form" id="signupForm">
+        <form class="signup-form" id="signupForm" action="https://formspree.io/f/xaeqwzon" method="POST">
           <div class="field">
-            <label for="firstName">Prénom</label>
-            <input id="firstName" name="firstName" type="text" autocomplete="given-name" placeholder="Camille" required>
+            <label for="prenom">Prénom</label>
+            <input id="prenom" name="prenom" type="text" autocomplete="given-name" placeholder="Camille" required>
           </div>
           <div class="field">
             <label for="email">Email</label>
@@ -223,23 +223,28 @@
           <fieldset class="field wide">
             <legend>Qu’est-ce que vous venez chercher autour de la table&nbsp;?</legend>
             <div class="chips">
-              <label class="chip"><input type="radio" name="intent" value="amour" required><span>L’amour, si l’étincelle est là</span></label>
-              <label class="chip"><input type="radio" name="intent" value="amitie"><span>De nouveaux amis</span></label>
-              <label class="chip"><input type="radio" name="intent" value="ouvert"><span>Les deux, on verra bien</span></label>
-              <label class="chip"><input type="radio" name="intent" value="soiree"><span>Juste une belle soirée autour d’un livre</span></label>
+              <label class="chip"><input type="radio" name="intention" value="amour" required><span>L’amour, si l’étincelle est là</span></label>
+              <label class="chip"><input type="radio" name="intention" value="amitie"><span>De nouveaux amis</span></label>
+              <label class="chip"><input type="radio" name="intention" value="ouvert"><span>Les deux, on verra bien</span></label>
+              <label class="chip"><input type="radio" name="intention" value="soiree"><span>Juste une belle soirée autour d’un livre</span></label>
             </div>
           </fieldset>
           <fieldset class="field wide">
             <legend>Vous êtes…</legend>
             <p class="field-help">Pour équilibrer les tables&nbsp;: la parité est un objectif, pas une règle.</p>
             <div class="chips">
-              <label class="chip"><input type="radio" name="gender" value="femme" required><span>Une femme</span></label>
-              <label class="chip"><input type="radio" name="gender" value="homme"><span>Un homme</span></label>
-              <label class="chip"><input type="radio" name="gender" value="autre"><span>Autre</span></label>
-              <label class="chip"><input type="radio" name="gender" value="non-precise"><span>Je préfère ne pas répondre</span></label>
+              <label class="chip"><input type="radio" name="genre" value="femme" required><span>Une femme</span></label>
+              <label class="chip"><input type="radio" name="genre" value="homme"><span>Un homme</span></label>
+              <label class="chip"><input type="radio" name="genre" value="autre"><span>Autre</span></label>
+              <label class="chip"><input type="radio" name="genre" value="non-precise"><span>Je préfère ne pas répondre</span></label>
             </div>
           </fieldset>
-          <button class="btn btn-big wide" type="submit">Je veux participer <span aria-hidden="true">→</span></button>
+          <div class="hp" aria-hidden="true">
+            <label for="gotcha">Ne pas remplir ce champ</label>
+            <input id="gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+          </div>
+          <p class="form-error wide" id="signupError" role="alert" hidden></p>
+          <button class="btn btn-big wide" type="submit"><span class="btn-label">Envoyer</span> <span aria-hidden="true">→</span></button>
         </form>
 
         <div class="success" id="signupSuccess" data-signup-success hidden tabindex="-1">

@@ -30,23 +30,33 @@ python3 -m http.server 8080
 
 Puis ouvre `http://localhost:8080`.
 
-## Brancher le backend
+## Envoi des inscriptions (Formspree)
 
-Dans `app.js`, handler `submit` du formulaire : remplace le `console.log` par l'appel à ton endpoint NestJS (un exemple est en commentaire).
+Le formulaire envoie vers Formspree : `https://formspree.io/f/xaeqwzon` (attribut `action` du `<form>`).
 
-Payload envoyé :
+- **Avec JavaScript** : `app.js` envoie en arrière-plan (`fetch`, en-tête `Accept: application/json`) et affiche la confirmation sur la page. En cas d'échec, un message d'erreur s'affiche et le bouton redevient cliquable.
+- **Sans JavaScript** : le formulaire part en HTML classique, avec les mêmes noms de champs, et Formspree affiche sa propre page de remerciement.
+- **Anti-spam** : le champ caché `_gotcha`. Les robots le remplissent, et Formspree ignore alors l'envoi.
 
-```json
-{
-  "firstName": "Camille",
-  "email": "camille@example.com",
-  "intent": "amour | amitie | ouvert | soiree",
-  "gender": "femme | homme | autre | non-precise",
-  "answers": { "role": "ecoute", "ambiance": "debat", "affinites": "humour", "lecture": "faisable" }
-}
-```
+Tous les champs sont envoyés à plat (pas de JSON imbriqué) : chacun arrive séparément dans Formspree, ce qui permet de trier et d'exporter sans retraitement.
 
-`answers` est vide si la personne n'a pas fait le quiz, ce qui est aussi une donnée (taux de complétion du quiz).
+| Champ | Valeurs | Remarque |
+|---|---|---|
+| `prenom` | texte | |
+| `email` | email | Formspree s'en sert comme adresse de réponse |
+| `intention` | `amour`, `amitie`, `ouvert` (les deux), `soiree` (juste une belle soirée) | |
+| `genre` | `femme`, `homme`, `autre`, `non-precise` | |
+| `quiz_statut` | `complet`, `partiel`, `non fait` | Toujours envoyé : donne le taux de complétion du quiz |
+| `quiz_role` | `lance`, `questionne`, `ecoute`, `fait-rire` | Envoyé seulement si la question a été répondue |
+| `quiz_ambiance` | `debat`, `confidences`, `fous-rires`, `decouverte` | Idem |
+| `quiz_affinites` | `humour`, `valeurs`, `passions`, `surprise` | Idem |
+| `quiz_lecture` | `formalite`, `faisable`, `petit-defi`, `vrai-defi` | Idem |
+| `landing` | `v2` | Version de la landing (constante `LANDING_VERSION` dans `app.js`) |
+| `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` | texte | Seulement si le lien visité contient ces paramètres, par exemple `?utm_source=instagram` |
+
+L'objet de l'email de notification est « Nouvelle inscription : <prénom> » (champ spécial `_subject`).
+
+Pour tester : lance le serveur local, remplis le formulaire, puis vérifie l'arrivée de l'inscription dans Formspree. Pense à vérifier le quota d'envois mensuel de ton offre Formspree.
 
 ## RGPD
 
