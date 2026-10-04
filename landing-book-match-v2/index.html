@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="4 personnes, 1 livre, 10 jours, 1 dîner. Une rencontre qui commence par une histoire. Première édition à Paris.">
+  <meta name="theme-color" content="#f7f1e5">
+  <title>chapitre. — Une histoire avant la rencontre</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Figtree:wght@400..800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,600..900,0..100,0..1;1,9..144,600..900,0..100,0..1&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <header class="nav" id="nav">
+    <a class="brand" href="#top" aria-label="chapitre., retour en haut">chapitre<span>.</span></a>
+    <nav class="nav-links" aria-label="Navigation principale">
+      <a class="nav-link" href="#comment">Comment ça marche</a>
+      <a class="nav-link" href="#quiz">Le quiz</a>
+      <a class="btn btn-small" href="#inscription">Je veux participer</a>
+    </nav>
+  </header>
+
+  <main id="contenu">
+    <section class="hero" id="top" aria-labelledby="hero-title">
+      <div class="hero-copy">
+        <p class="kicker hand">
+          Une nouvelle façon de se rencontrer
+          <svg class="squiggle" viewBox="0 0 56 44" aria-hidden="true"><path d="M3 9c15-7 31-3 39 9 4 7 5 14 3 21"/><path d="M36 31l9 9 7-11"/></svg>
+        </p>
+        <h1 id="hero-title">Et si une rencontre commençait par une <em><mark>histoire</mark></em>&nbsp;?</h1>
+
+        <p class="formula">
+          <span class="f-item"><b>4</b> <span>personnes</span></span>
+          <span class="f-op">+</span>
+          <span class="f-item"><b>1</b> <span>livre</span></span>
+          <span class="f-op">+</span>
+          <span class="f-item"><b>10</b> <span>jours</span></span>
+          <span class="f-op">=</span>
+          <span class="f-item f-result" data-draw>
+            <b>1</b> <span>dîner</span>
+            <svg class="scribble" viewBox="0 0 120 120" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M64 9C31 6 8 29 9 61c1 30 27 51 57 49 30-2 47-27 45-55-2-27-25-46-55-44-15 1-28 8-35 17"/></svg>
+          </span>
+        </p>
+
+        <p class="lead">Trois personnes que vous ne connaissez pas reçoivent <strong>le même livre que vous</strong>. Dix jours pour le lire. Puis un dîner où <strong>la conversation a déjà commencé</strong>.</p>
+
+        <div class="hero-actions">
+          <a class="btn" href="#inscription">Je veux participer <span aria-hidden="true">→</span></a>
+          <p class="cta-note hand">
+            <svg class="arrow" viewBox="0 0 48 40" aria-hidden="true"><path d="M44 6c-4 16-18 26-38 24"/><path d="M14 22l-8 8 10 4"/></svg>
+            Promis, c’est court&nbsp;:
+            <span class="circled" data-draw>100&nbsp;pages max<svg class="scribble" viewBox="0 0 200 60" preserveAspectRatio="none" aria-hidden="true"><path pathLength="1" d="M108 6C58 2 8 12 6 32c-2 18 46 25 98 23 52-2 92-10 90-28C192 10 150 2 96 6 70 8 50 14 40 18"/></svg></span>
+          </p>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="stack-wrap">
+          <div class="polaroid-stack" id="heroSlider" role="group" aria-roledescription="carrousel" aria-label="Les 3 étapes en photos">
+            <figure class="polaroid" data-pos="0">
+              <img src="https://images.unsplash.com/photo-1604648717742-f93ce63fc25c?auto=format&fit=crop&w=1000&h=800&q=80" alt="Deux mains sur un livre emballé dans du papier kraft, noué d’un ruban rouge" width="1000" height="800">
+              <figcaption class="hand"><span class="cap-num">1</span> le livre arrive</figcaption>
+            </figure>
+            <figure class="polaroid" data-pos="1" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1512508561942-18fbe6d5d0cf?auto=format&fit=crop&w=1000&h=800&q=80" alt="Vue du dessus : une personne en pull orange lit, un livre ouvert sur les genoux, une tasse de café à la main" width="1000" height="800">
+              <figcaption class="hand"><span class="cap-num">2</span> dix jours pour le lire</figcaption>
+            </figure>
+            <figure class="polaroid" data-pos="2" aria-hidden="true">
+              <img src="https://images.unsplash.com/photo-1789758489753-ad8055d141d8?auto=format&fit=crop&w=1000&h=800&q=80" alt="Deux femmes et deux hommes partagent des petites assiettes en riant autour d’une table" width="1000" height="800">
+              <figcaption class="hand"><span class="cap-num">3</span> on passe à table</figcaption>
+            </figure>
+          </div>
+          <p class="sticky-note"><span class="hand">1<sup>re</sup> édition</span> <strong>Paris · 2026</strong></p>
+        </div>
+        <div class="slider-nav" role="group" aria-label="Choisir une étape">
+          <button class="slider-dot" type="button" aria-pressed="true" aria-label="Étape 1 : le livre arrive">1</button>
+          <button class="slider-dot" type="button" aria-pressed="false" aria-label="Étape 2 : dix jours pour le lire">2</button>
+          <button class="slider-dot" type="button" aria-pressed="false" aria-label="Étape 3 : on passe à table">3</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how" id="comment" aria-labelledby="how-title">
+      <div class="section-head">
+        <h2 id="how-title">Comment ça marche&nbsp;?</h2>
+        <p class="note hand">Trois étapes. Pas une de plus.</p>
+      </div>
+
+      <ol class="steps">
+        <li class="step">
+          <div class="step-top">
+            <span class="step-num" aria-hidden="true">1</span>
+            <svg class="doodle" viewBox="0 0 64 64" aria-hidden="true"><path d="M32 18c-8-5-17-6-26-3v35c9-3 18-2 26 3 8-5 17-6 26-3V15c-9-3-18-2-26 3z"/><path d="M32 18v35"/><path d="M12 25c5-1 10 0 14 2M12 33c5-1 10 0 14 2M38 27c4-2 9-3 14-2M38 35c4-2 9-3 14-2"/></svg>
+          </div>
+          <p class="step-when hand">Au départ</p>
+          <h3>Le livre arrive</h3>
+          <p>3 personnes que vous ne connaissez pas reçoivent <mark>le même livre que vous</mark>. Une histoire courte&nbsp;: 100&nbsp;pages maximum.</p>
+        </li>
+        <li class="step">
+          <div class="step-top">
+            <span class="step-num" aria-hidden="true">2</span>
+            <svg class="doodle" viewBox="0 0 64 64" aria-hidden="true"><rect x="8" y="12" width="48" height="44" rx="7"/><path d="M8 25h48M21 6v12M43 6v12"/><path d="M17 37l4 4 8-9"/><path d="M36 36h11M17 48h11M36 48h11"/></svg>
+          </div>
+          <p class="step-when hand">Pendant 10&nbsp;jours</p>
+          <h3>Vous lisez</h3>
+          <p>Environ <mark>10&nbsp;pages par jour</mark>. Quelques questions viennent ponctuer la lecture.</p>
+        </li>
+        <li class="step">
+          <div class="step-top">
+            <span class="step-num" aria-hidden="true">3</span>
+            <svg class="doodle" viewBox="0 0 64 64" aria-hidden="true"><circle cx="34" cy="34" r="16"/><circle cx="34" cy="34" r="9"/><path d="M8 12v11c0 3 2 5 4 5v24M12 12v10M16 12v11c0 3-2 5-4 5"/><path d="M58 12c-5 3-6 10-6 18h6v22"/></svg>
+          </div>
+          <p class="step-when hand">Le jour&nbsp;J</p>
+          <h3>On passe à table</h3>
+          <p>Vous vous retrouvez à 4 autour d’un dîner. L’app en maître de cérémonie et <mark>une conversation qui a 10 jours d'avance</mark>.</p>
+        </li>
+      </ol>
+
+      <div class="section-cta">
+        <a class="btn" href="#inscription">Je veux participer <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="section idea" aria-labelledby="idea-title">
+      <div class="idea-inner">
+        <div>
+          <p class="idea-kicker hand">L’idée</p>
+          <h2 id="idea-title">Avant de vous rencontrer, vous avez déjà <mark>quelque chose à vous dire.</mark></h2>
+        </div>
+        <div class="idea-body">
+          <p>Nous réunissons quatre personnes qui pourraient avoir envie de se rencontrer. Elles reçoivent le même livre, le lisent pendant dix jours, puis se retrouvent autour d’un dîner.</p>
+          <p class="idea-hand hand">Le livre n’est pas la destination. C’est le point de départ.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section quiz" id="quiz" aria-labelledby="quiz-title">
+      <div class="section-head">
+        <h2 id="quiz-title">Faisons connaissance&nbsp;: <em>4&nbsp;questions</em></h2>
+        <p class="section-lead">Nous ne cherchons pas seulement des personnes compatibles deux à deux&nbsp;: nous composons une table où les quatre passeront une excellente soirée. <mark>Il n’y a pas de bonne réponse.</mark></p>
+      </div>
+
+      <div class="quiz-card" id="quizCard">
+        <div class="quiz-progress">
+          <p id="quizCount" aria-live="polite">Question 1 sur 4</p>
+          <ol class="dots" aria-hidden="true"><li></li><li></li><li></li><li></li></ol>
+        </div>
+
+        <div class="quiz-stage" id="quizStage"></div>
+        <noscript><p class="quiz-hint">Activez JavaScript pour répondre au quiz.</p></noscript>
+
+        <div class="quiz-footer" id="quizFooter">
+          <p class="quiz-hint" id="quizHint">Choisissez la réponse qui vous ressemble le plus.</p>
+          <button class="btn" type="button" id="quizNext" data-quiz-next disabled>Continuer <span aria-hidden="true">→</span></button>
+        </div>
+
+        <div class="quiz-done" id="quizDone" data-quiz-done hidden tabindex="-1">
+          <p class="done-kicker hand">C’est noté&nbsp;!</p>
+          <h3>Vos réponses, en bref</h3>
+          <ul class="answers" id="quizAnswers"></ul>
+          <p class="done-next">Il ne reste qu’une étape&nbsp;: nous laisser votre email.</p>
+          <div class="done-actions">
+            <a class="btn" href="#inscription">Je veux participer <span aria-hidden="true">→</span></a>
+            <button class="link" type="button" id="quizRestart">Recommencer le quiz</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section signup" id="inscription" aria-labelledby="signup-title">
+      <div class="signup-inner">
+        <p class="badge"><span class="hand">1<sup>re</sup> édition</span> Paris · 2026</p>
+        <h2 id="signup-title">Vous voulez <em>essayer</em>&nbsp;?</h2>
+        <p class="section-lead">Nous préparons la première expérience à Paris. Laissez-nous votre email et soyez parmi les premiers à la découvrir.</p>
+
+        <form class="signup-form" id="signupForm">
+          <div class="field">
+            <label for="firstName">Prénom</label>
+            <input id="firstName" name="firstName" type="text" autocomplete="given-name" placeholder="Camille" required>
+          </div>
+          <div class="field">
+            <label for="email">Email</label>
+            <input id="email" name="email" type="email" autocomplete="email" placeholder="vous@email.com" required>
+          </div>
+          <fieldset class="field wide">
+            <legend>Qu’est-ce que vous venez chercher autour de la table&nbsp;?</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="intent" value="amour" required><span>L’amour, si l’étincelle est là</span></label>
+              <label class="chip"><input type="radio" name="intent" value="amitie"><span>De nouveaux amis</span></label>
+              <label class="chip"><input type="radio" name="intent" value="ouvert"><span>Les deux, on verra bien</span></label>
+              <label class="chip"><input type="radio" name="intent" value="soiree"><span>Juste une belle soirée autour d’un livre</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field wide">
+            <legend>Vous êtes…</legend>
+            <p class="field-help">Pour équilibrer les tables&nbsp;: la parité est un objectif, pas une règle.</p>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="gender" value="femme" required><span>Une femme</span></label>
+              <label class="chip"><input type="radio" name="gender" value="homme"><span>Un homme</span></label>
+              <label class="chip"><input type="radio" name="gender" value="autre"><span>Autre</span></label>
+              <label class="chip"><input type="radio" name="gender" value="non-precise"><span>Je préfère ne pas répondre</span></label>
+            </div>
+          </fieldset>
+          <fieldset class="field wide" id="romanceField" hidden disabled>
+            <legend>Côté cœur, vous aimeriez rencontrer…</legend>
+            <div class="chips">
+              <label class="chip"><input type="radio" name="lookingFor" value="hommes" required><span>Des hommes</span></label>
+              <label class="chip"><input type="radio" name="lookingFor" value="femmes"><span>Des femmes</span></label>
+              <label class="chip"><input type="radio" name="lookingFor" value="tous"><span>Peu importe</span></label>
+            </div>
+            <label class="consent"><input type="checkbox" name="consent" value="oui" required><span>J’accepte que chapitre. utilise cette réponse pour composer les tables.</span></label>
+          </fieldset>
+          <button class="btn btn-big wide" type="submit">Je veux participer <span aria-hidden="true">→</span></button>
+        </form>
+
+        <div class="success" id="signupSuccess" data-signup-success hidden tabindex="-1">
+          <p class="hand">C’est noté&nbsp;!</p>
+          <h3>Merci <span id="successName"></span>.</h3>
+          <p>Vous serez parmi les premiers à connaître la suite.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span class="brand">chapitre<span>.</span></span>
+    <span class="hand">Une histoire avant la rencontre.</span>
+    <span>Paris · 2026</span>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
