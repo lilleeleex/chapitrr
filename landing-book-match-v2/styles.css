@@ -177,7 +177,9 @@ h1 { max-width: 13ch; margin-bottom: clamp(22px, 3vw, 34px); font-size: clamp(42
   background: rgb(196 214 180 / .85);
   transform: translateX(-50%) rotate(-4deg);
 }
-.polaroid img { width: 100%; height: auto; aspect-ratio: 5 / 4; object-fit: cover; background: var(--paper-2); }
+.polaroid img { width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; background: var(--paper-2); }
+/* Photo de jour réchauffée pour s’accorder avec la lumière des deux autres */
+.polaroid img.warm { filter: sepia(.35) saturate(1.25) contrast(1.05) brightness(.97); }
 .polaroid figcaption { padding: 12px 8px 18px; font-size: clamp(22px, 2vw, 27px); text-align: center; }
 /* Slider : une pile de 3 polaroids, une par étape */
 .stack-wrap { position: relative; }

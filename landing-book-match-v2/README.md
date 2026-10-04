@@ -59,8 +59,8 @@ Le genre combiné à « Côté cœur » révèle l'orientation sexuelle : c'est 
 
 Le hero est un slider de 3 polaroids, une photo par étape. Il défile seul pendant deux tours, puis s'arrête. Il s'arrête aussi dès qu'on clique, et au survol. Il ne défile jamais si l'utilisateur a demandé moins d'animations.
 
-1. Le livre arrive : `photo-1604648717742-f93ce63fc25c`
-2. Dix jours pour le lire : `photo-1512508561942-18fbe6d5d0cf`
-3. On passe à table : `photo-1789758489753-ad8055d141d8` (2 femmes, 2 hommes)
+1. Le livre arrive : `photo-1613335873498-ac42de392672`, zoomée (paramètres `fp-*` dans l'URL) pour sortir du cadre un livre ouvert en anglais
+2. Dix jours pour le lire : `photo-1512508561942-18fbe6d5d0cf`, zoomée pour sortir du cadre des couvertures de livres en anglais
+3. On passe à table : `photo-1683538185904-4dc847308479` (2 hommes face à 2 femmes). Photo de jour, réchauffée en CSS (classe `.warm` dans `styles.css`). Pour la production, mieux vaut appliquer ce réglage directement sur le fichier image.
 
 Ce sont des photos Unsplash gratuites, chargées depuis leur CDN pour le prototype. Pour la production, télécharge-les (ou remplace-les par tes propres photos) et vérifie la licence et les droits à l'image des personnes visibles.
