@@ -30,18 +30,30 @@ python3 -m http.server 8080
 
 Puis ouvre `http://localhost:8080`.
 
-## Envoi des inscriptions (Formspree)
+## Envoi des candidatures (Formspree)
 
 Le formulaire envoie vers Formspree : `https://formspree.io/f/xaeqwzon` (attribut `action` du `<form>`).
 
-- **Avec JavaScript** : `app.js` envoie en arrière-plan (`fetch`, en-tête `Accept: application/json`) et affiche la confirmation sur la page. En cas d'échec, un message d'erreur s'affiche et le bouton redevient cliquable.
-- **Sans JavaScript** : le formulaire part en HTML classique, avec les mêmes noms de champs, et Formspree affiche sa propre page de remerciement.
+Le parcours après le formulaire se fait en trois temps :
+
+1. **La candidature** part dès que le formulaire est validé (envoi `type = candidature`).
+2. **La question sur le prix** s'affiche : « Si votre place était proposée à 49 € (dîner non compris), souhaiteriez-vous participer ? ». Un clic sur Oui, clairement / Peut-être / Non envoie la réponse (envoi `type = prix`).
+3. **Le merci** s'affiche tout à la fin.
+
+Chaque candidat qui répond au prix génère donc **deux envois** dans Formspree, reliés par le même `candidature_id` (et le même email). La candidature est enregistrée même si la personne ne répond pas au prix. Ces deux envois comptent tous les deux dans le quota mensuel de Formspree.
+
+- **Avec JavaScript** : `app.js` envoie en arrière-plan (`fetch`, en-tête `Accept: application/json`). En cas d'échec, un message d'erreur s'affiche et on peut réessayer.
+- **Sans JavaScript** : le formulaire part en HTML classique, avec les mêmes noms de champs (sans la question sur le prix), et Formspree affiche sa propre page de remerciement.
 - **Anti-spam** : le champ caché `_gotcha`. Les robots le remplissent, et Formspree ignore alors l'envoi.
 
 Tous les champs sont envoyés à plat (pas de JSON imbriqué) : chacun arrive séparément dans Formspree, ce qui permet de trier et d'exporter sans retraitement.
 
+### Envoi « candidature »
+
 | Champ | Valeurs | Remarque |
 |---|---|---|
+| `type` | `candidature` | |
+| `candidature_id` | identifiant court, par exemple `mux42272-fa138` | Relie la candidature à la réponse prix |
 | `prenom` | texte | |
 | `email` | email | Formspree s'en sert comme adresse de réponse |
 | `intention` | `amour`, `amitie`, `ouvert` (les deux), `soiree` (juste une belle soirée) | |
@@ -54,9 +66,24 @@ Tous les champs sont envoyés à plat (pas de JSON imbriqué) : chacun arrive s�
 | `landing` | `v2` | Version de la landing (constante `LANDING_VERSION` dans `app.js`) |
 | `utm_source`, `utm_medium`, `utm_campaign`, `utm_content`, `utm_term` | texte | Seulement si le lien visité contient ces paramètres, par exemple `?utm_source=instagram` |
 
-L'objet de l'email de notification est « Nouvelle inscription : <prénom> » (champ spécial `_subject`).
+Objet de l'email de notification : « Nouvelle inscription : <prénom> ».
 
-Pour tester : lance le serveur local, remplis le formulaire, puis vérifie l'arrivée de l'inscription dans Formspree. Pense à vérifier le quota d'envois mensuel de ton offre Formspree.
+### Envoi « prix »
+
+| Champ | Valeurs | Remarque |
+|---|---|---|
+| `type` | `prix` | |
+| `candidature_id` | le même que la candidature | |
+| `prenom`, `email` | ceux de la candidature | |
+| `prix_teste` | `49` | Vient de l'attribut `data-prix` du bloc `#pricePanel` dans `index.html` |
+| `prix_reponse` | `oui` (Oui, clairement), `peut-etre`, `non` | |
+| `landing` | `v2` | |
+
+Objet de l'email de notification : « Prix 49 € : <prénom> a répondu « … » ».
+
+Pour tester un autre prix : change `data-prix` **et** le montant affiché dans la question (les deux sont dans `#pricePanel`).
+
+Pour tester le parcours : lance le serveur local, remplis le formulaire, réponds à la question sur le prix, puis vérifie l'arrivée des deux envois dans Formspree.
 
 ## RGPD
 

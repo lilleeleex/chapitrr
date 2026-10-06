@@ -142,23 +142,34 @@ $("quizRestart").addEventListener("click", () => {
   stage.querySelector(".q-title").focus({ preventScroll: true });
 });
 
-// Inscription : envoi à Formspree (adresse dans l'attribut action du formulaire).
-// Sans JavaScript, le formulaire part quand même en HTML classique, avec les mêmes noms de champs.
+// Candidature : envoi à Formspree (adresse dans l'attribut action du formulaire), en deux temps :
+// 1. la candidature (type = "candidature"), dès que le formulaire est validé ;
+// 2. la réponse à la question sur le prix (type = "prix"), affichée juste après.
+// Les deux envois partagent le même candidature_id pour les relier dans Formspree.
+// Sans JavaScript, le formulaire part quand même en HTML classique (sans la question sur le prix).
 // Tous les champs sont à plat (pas de JSON imbriqué) : chacun arrive séparément dans Formspree.
 const form = $("signupForm");
-const success = $("signupSuccess");
+const pricePanel = $("pricePanel");
+const thanksPanel = $("thanksPanel");
 const formError = $("signupError");
+const priceError = $("priceError");
+const priceButtons = [...pricePanel.querySelectorAll("[data-prix-reponse]")];
 const submitBtn = form.querySelector('[type="submit"]');
 const submitLabel = submitBtn.querySelector(".btn-label");
+const submitText = submitLabel.textContent;
 
 const LANDING_VERSION = "v2"; // pour comparer plusieurs versions de la landing dans Formspree
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
+let candidate = null; // { id, prenom, email } une fois la candidature envoyée
 
-function buildSubmission() {
-  const data = new FormData(form); // prenom, email, intention, genre, _gotcha
+const newCandidatureId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
+
+function buildCandidature(id) {
+  const data = new FormData(form); // type, prenom, email, intention, genre, _gotcha
   const prenom = form.elements.prenom.value.trim();
   data.set("prenom", prenom);
   data.set("email", form.elements.email.value.trim());
+  data.append("candidature_id", id);
 
   // Réponses du quiz, seulement celles qui ont été données
   const answered = answers.filter(Boolean);
@@ -180,45 +191,90 @@ function buildSubmission() {
   return data;
 }
 
+async function sendToFormspree(data) {
+  const response = await fetch(form.action, {
+    method: "POST",
+    body: data,
+    headers: { Accept: "application/json" }
+  });
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}));
+    const details = (body.errors || []).map(e => e.message).join(", ");
+    throw new Error(details || `HTTP ${response.status}`);
+  }
+}
+
+// fetch lève une TypeError quand le réseau ne répond pas ; les autres erreurs viennent de Formspree
+const errorText = (error, what) => error instanceof TypeError
+  ? `Oups, ${what} n’est pas partie. Vérifiez votre connexion et réessayez.`
+  : `Oups, ${what} n’est pas partie. Réessayez dans un instant.`;
+
+function showPanel(panel) {
+  document.querySelectorAll(".js-prenom").forEach(el => { el.textContent = candidate.prenom; });
+  form.hidden = true;
+  pricePanel.hidden = panel !== pricePanel;
+  thanksPanel.hidden = panel !== thanksPanel;
+  panel.focus();
+}
+
 function setSending(sending) {
   submitBtn.disabled = sending;
   submitBtn.setAttribute("aria-busy", String(sending));
-  submitLabel.textContent = sending ? "Envoi en cours…" : "Je veux participer";
+  submitLabel.textContent = sending ? "Envoi en cours…" : submitText;
 }
 
 form.addEventListener("submit", async event => {
   event.preventDefault();
   formError.hidden = true;
   setSending(true);
-  const data = buildSubmission();
+  const id = newCandidatureId();
+  const data = buildCandidature(id);
 
   try {
-    const response = await fetch(form.action, {
-      method: "POST",
-      body: data,
-      headers: { Accept: "application/json" }
-    });
-    if (!response.ok) {
-      const body = await response.json().catch(() => ({}));
-      const details = (body.errors || []).map(e => e.message).join(", ");
-      throw new Error(details || `HTTP ${response.status}`);
-    }
+    await sendToFormspree(data);
   } catch (error) {
     console.error("Inscription non envoyée :", error);
-    // fetch lève une TypeError quand le réseau ne répond pas ; les autres erreurs viennent de Formspree
-    formError.textContent = error instanceof TypeError
-      ? "Oups, l’inscription n’est pas partie. Vérifiez votre connexion et réessayez."
-      : "Oups, l’inscription n’est pas partie. Réessayez dans un instant.";
+    formError.textContent = errorText(error, "votre inscription");
     formError.hidden = false;
     setSending(false);
     return;
   }
 
-  $("successName").textContent = data.get("prenom");
-  form.hidden = true;
-  success.hidden = false;
-  success.focus();
+  candidate = { id, prenom: data.get("prenom"), email: data.get("email") };
+  showPanel(pricePanel);
 });
+
+// Question sur le prix : un clic suffit, la réponse part aussitôt
+priceButtons.forEach(button => button.addEventListener("click", async () => {
+  const prix = pricePanel.dataset.prix;
+  priceError.hidden = true;
+  priceButtons.forEach(b => {
+    b.setAttribute("aria-pressed", String(b === button));
+    b.disabled = true;
+  });
+
+  const data = new FormData();
+  data.append("type", "prix");
+  data.append("prenom", candidate.prenom);
+  data.append("email", candidate.email);
+  data.append("candidature_id", candidate.id);
+  data.append("prix_teste", prix);
+  data.append("prix_reponse", button.dataset.prixReponse);
+  data.append("landing", LANDING_VERSION);
+  data.append("_subject", `Prix ${prix} € : ${candidate.prenom} a répondu « ${button.textContent.trim()} »`);
+
+  try {
+    await sendToFormspree(data);
+  } catch (error) {
+    console.error("Réponse prix non envoyée :", error);
+    priceError.textContent = errorText(error, "votre réponse");
+    priceError.hidden = false;
+    priceButtons.forEach(b => { b.disabled = false; });
+    return;
+  }
+
+  showPanel(thanksPanel);
+}));
 
 // Surligneur et cercles qui se dessinent quand ils entrent à l'écran
 const drawables = document.querySelectorAll("mark, [data-draw]");
