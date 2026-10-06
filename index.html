@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="4 personnes, 1 livre, 10 jours, 1 dîner. Une rencontre qui commence par une histoire. Première édition à Paris.">
+    content="4 personnes, 1 livre, 10 jours, 1 dîner. Une rencontre qui commence par une histoire. Première édition à Paris : inscriptions ouvertes.">
   <meta name="theme-color" content="#f7f1e5">
   <title>chapitrr. — Une histoire avant la rencontre</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -25,7 +25,7 @@
     <nav class="nav-links" aria-label="Navigation principale">
       <a class="nav-link" href="#comment">Comment ça marche</a>
       <a class="nav-link" href="#quiz">Le quiz</a>
-      <a class="btn btn-small" href="#inscription">Je veux participer</a>
+      <a class="btn btn-small" href="#inscription">Participer</a>
     </nav>
   </header>
 
@@ -61,7 +61,7 @@
           Dix jours pour le lire. Puis un dîner où <strong>la conversation a déjà commencé</strong>.</p>
 
         <div class="hero-actions">
-          <a class="btn" href="#inscription">Je veux participer <span aria-hidden="true">→</span></a>
+          <a class="btn" href="#inscription"><span>Participer à la 1<sup>re</sup> édition</span> <span aria-hidden="true">→</span></a>
           <p class="cta-note hand">
             <svg class="arrow" viewBox="0 0 48 40" aria-hidden="true">
               <path d="M44 6c-4 16-18 26-38 24" />
@@ -187,7 +187,7 @@
       </ol>
 
       <div class="section-cta">
-        <a class="btn" href="#inscription">Je veux participer <span aria-hidden="true">→</span></a>
+        <a class="btn" href="#inscription"><span>Participer à la 1<sup>re</sup> édition</span> <span aria-hidden="true">→</span></a>
       </div>
     </section>
 
@@ -233,7 +233,7 @@
             <path class="dd-spark" d="M130 22V8M115 26l-8-8M145 26l8-8" />
           </svg>
           <h3>Pourquoi un dîner&nbsp;?</h3>
-          <Plus>Parce qu’une rencontre se vit en vrai. Après dix jours dans la même histoire, chacun arrive à table avec
+          <p>Parce qu’une rencontre se vit en vrai. Après dix jours dans la même histoire, chacun arrive à table avec
             ses impressions. <mark>On commence à parler du livre, on finit par
               parler de soi.</mark> C’est là qu’on découvre si le courant passe, en amitié comme en amour.</p>
         </article>
@@ -277,10 +277,9 @@
           <p class="done-kicker hand">C’est noté&nbsp;!</p>
           <h3>Vos réponses, en bref</h3>
           <ul class="answers" id="quizAnswers"></ul>
-          <p class="done-next">Il ne reste qu’une étape&nbsp;: nous laisser votre email. Vos réponses partiront avec
-            votre inscription.</p>
+          <p class="done-next">Il ne reste qu’une étape&nbsp;: vous inscrire. Vos réponses partiront avec votre inscription.</p>
           <div class="done-actions">
-            <a class="btn" href="#inscription">Je veux participer <span aria-hidden="true">→</span></a>
+            <a class="btn" href="#inscription">Participer <span aria-hidden="true">→</span></a>
             <button class="link" type="button" id="quizRestart">Recommencer le quiz</button>
           </div>
         </div>
@@ -290,11 +289,12 @@
     <section class="section signup" id="inscription" aria-labelledby="signup-title">
       <div class="signup-inner">
         <p class="badge"><span class="hand">1<sup>re</sup> édition</span> Paris · 2026</p>
-        <h2 id="signup-title">Vous voulez <em>essayer</em>&nbsp;?</h2>
-        <p class="section-lead">Nous préparons la première expérience à Paris. Laissez-nous votre email et soyez parmi
-          les premiers à la découvrir.</p>
+        <h2 id="signup-title">Rejoignez la <em>1<sup>re</sup> édition</em></h2>
+        <p class="section-lead"><strong>20&nbsp;places</strong> à Paris pour les tout premiers convives. Les inscriptions
+          sont ouvertes&nbsp;: nous composerons les tables à partir de vos réponses.</p>
 
         <form class="signup-form" id="signupForm" action="https://formspree.io/f/xaeqwzon" method="POST">
+          <input type="hidden" name="type" value="candidature">
           <div class="field">
             <label for="prenom">Prénom</label>
             <input id="prenom" name="prenom" type="text" autocomplete="given-name" placeholder="Camille" required>
@@ -332,14 +332,32 @@
             <input id="gotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
           </div>
           <p class="form-error wide" id="signupError" role="alert" hidden></p>
-          <button class="btn btn-big wide" type="submit"><span class="btn-label">Envoyer</span> <span
+          <button class="btn btn-big wide" type="submit"><span class="btn-label">Je participe</span> <span
               aria-hidden="true">→</span></button>
         </form>
 
-        <div class="success" id="signupSuccess" data-signup-success hidden tabindex="-1">
+        <!-- Étape 2 : test du prix (le prix testé est dans data-prix, et dans le texte de la question) -->
+        <div class="success" id="pricePanel" data-signup-success data-prix="19" hidden tabindex="-1">
+          <p class="hand">Inscription enregistrée&nbsp;!</p>
+          <h3>Une dernière question, <span class="js-prenom"></span></h3>
+          <p>L'expérience est payante, elle comprend : le matching, le livre livré chez vous et
+            l’organisation de la rencontre.</p>
+          <p class="price-question" id="priceQuestion">Si votre place était proposée à <mark>19&nbsp;€</mark> (dîner non
+            compris), souhaiteriez-vous participer&nbsp;?</p>
+          <div class="price-options" role="group" aria-labelledby="priceQuestion">
+            <button class="option" type="button" data-prix-reponse="oui" aria-pressed="false">Oui, clairement</button>
+            <button class="option" type="button" data-prix-reponse="peut-etre" aria-pressed="false">Peut-être</button>
+            <button class="option" type="button" data-prix-reponse="non" aria-pressed="false">Non</button>
+          </div>
+          <p class="form-error" id="priceError" role="alert" hidden></p>
+        </div>
+
+        <!-- Étape 3 : le merci, tout à la fin -->
+        <div class="success" id="thanksPanel" hidden tabindex="-1">
           <p class="hand">C’est noté&nbsp;!</p>
-          <h3>Merci <span id="successName"></span>.</h3>
-          <p>Vous serez parmi les premiers à connaître la suite.</p>
+          <h3>Merci <span class="js-prenom"></span>.</h3>
+          <p>Votre inscription à la première édition est bien enregistrée. Nous reviendrons vers vous par email pour la
+            suite.</p>
         </div>
       </div>
     </section>
