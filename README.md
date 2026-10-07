@@ -37,7 +37,7 @@ Le formulaire envoie vers Formspree : `https://formspree.io/f/xaeqwzon` (attribu
 Le parcours après le formulaire se fait en trois temps :
 
 1. **La candidature** part dès que le formulaire est validé (envoi `type = candidature`).
-2. **La question sur le prix** s'affiche : « Si votre place était proposée à 49 € (dîner non compris), souhaiteriez-vous participer ? ». Un clic sur Oui, clairement / Peut-être / Non envoie la réponse (envoi `type = prix`).
+2. **La question sur l'offre** s'affiche : la première édition est gratuite (matching, livre et organisation offerts), seul le dîner reste à la charge des convives. « Ça vous convient ? » Un clic sur Oui, ça me va / Peut-être / Non envoie la réponse (envoi `type = prix`).
 3. **Le merci** s'affiche tout à la fin.
 
 Chaque candidat qui répond au prix génère donc **deux envois** dans Formspree, reliés par le même `candidature_id` (et le même email). La candidature est enregistrée même si la personne ne répond pas au prix. Ces deux envois comptent tous les deux dans le quota mensuel de Formspree.
@@ -75,13 +75,13 @@ Objet de l'email de notification : « Nouvelle inscription : <prénom> ».
 | `type` | `prix` | |
 | `candidature_id` | le même que la candidature | |
 | `prenom`, `email` | ceux de la candidature | |
-| `prix_teste` | `49` | Vient de l'attribut `data-prix` du bloc `#pricePanel` dans `index.html` |
-| `prix_reponse` | `oui` (Oui, clairement), `peut-etre`, `non` | |
+| `prix_teste` | `0` (1re édition gratuite, dîner à la charge des convives) | Vient de l'attribut `data-prix` du bloc `#pricePanel` dans `index.html`. Les envois plus anciens peuvent contenir `49` ou `19` (prix testés avant) |
+| `prix_reponse` | `oui` (Oui, ça me va), `peut-etre`, `non` | |
 | `landing` | `v2` | |
 
-Objet de l'email de notification : « Prix 49 € : <prénom> a répondu « … » ».
+Objet de l'email de notification : « 1re édition gratuite, dîner à charge : <prénom> a répondu « … » » (texte de l'attribut `data-offre`).
 
-Pour tester un autre prix : change `data-prix` **et** le montant affiché dans la question (les deux sont dans `#pricePanel`).
+Pour tester une autre offre (un prix par exemple) : change `data-prix`, `data-offre` **et** le texte affiché dans `#pricePanel`.
 
 Pour tester le parcours : lance le serveur local, remplis le formulaire, réponds à la question sur le prix, puis vérifie l'arrivée des deux envois dans Formspree.
 

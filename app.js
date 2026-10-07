@@ -144,7 +144,8 @@ $("quizRestart").addEventListener("click", () => {
 
 // Candidature : envoi à Formspree (adresse dans l'attribut action du formulaire), en deux temps :
 // 1. la candidature (type = "candidature"), dès que le formulaire est validé ;
-// 2. la réponse à la question sur le prix (type = "prix"), affichée juste après.
+// 2. la réponse à la question sur l'offre (type = "prix"), affichée juste après :
+//    1re édition gratuite, dîner à la charge des convives (prix_teste = data-prix, ici 0).
 // Les deux envois partagent le même candidature_id pour les relier dans Formspree.
 // Sans JavaScript, le formulaire part quand même en HTML classique (sans la question sur le prix).
 // Tous les champs sont à plat (pas de JSON imbriqué) : chacun arrive séparément dans Formspree.
@@ -261,7 +262,7 @@ priceButtons.forEach(button => button.addEventListener("click", async () => {
   data.append("prix_teste", prix);
   data.append("prix_reponse", button.dataset.prixReponse);
   data.append("landing", LANDING_VERSION);
-  data.append("_subject", `Prix ${prix} € : ${candidate.prenom} a répondu « ${button.textContent.trim()} »`);
+  data.append("_subject", `${pricePanel.dataset.offre} : ${candidate.prenom} a répondu « ${button.textContent.trim()} »`);
 
   try {
     await sendToFormspree(data);

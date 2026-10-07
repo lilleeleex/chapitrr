@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description"
-    content="4 personnes, 1 livre, 10 jours, 1 dîner. Une rencontre qui commence par une histoire. Première édition à Paris : inscriptions ouvertes.">
+    content="4 personnes, 1 livre, 10 jours, 1 dîner. Une rencontre qui commence par une histoire. Première édition à Auxerre : inscriptions ouvertes.">
   <meta name="theme-color" content="#f7f1e5">
   <title>chapitrr. — Une histoire avant la rencontre</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -103,7 +103,7 @@
               <figcaption class="hand">on passe à table</figcaption>
             </figure>
           </div>
-          <p class="sticky-note"><span class="hand">1<sup>re</sup> édition</span> <strong>Paris · 2026</strong></p>
+          <p class="sticky-note"><span class="hand">1<sup>re</sup> édition</span> <strong>Auxerre · 2026</strong></p>
         </div>
         <div class="slider-nav" role="group" aria-label="Choisir une photo">
           <button class="slider-dot" type="button" aria-pressed="true" aria-label="Photo 1 : le livre arrive">1</button>
@@ -288,9 +288,9 @@
 
     <section class="section signup" id="inscription" aria-labelledby="signup-title">
       <div class="signup-inner">
-        <p class="badge"><span class="hand">1<sup>re</sup> édition</span> Paris · 2026</p>
+        <p class="badge"><span class="hand">1<sup>re</sup> édition</span> Auxerre · 2026</p>
         <h2 id="signup-title">Rejoignez la <em>1<sup>re</sup> édition</em></h2>
-        <p class="section-lead"><strong>20&nbsp;places</strong> à Paris pour les tout premiers convives. Les inscriptions
+        <p class="section-lead"><strong>20&nbsp;places</strong> à Auxerre pour les tout premiers convives. Les inscriptions
           sont ouvertes&nbsp;: nous composerons les tables à partir de vos réponses.</p>
 
         <form class="signup-form" id="signupForm" action="https://formspree.io/f/xaeqwzon" method="POST">
@@ -337,15 +337,16 @@
         </form>
 
         <!-- Étape 2 : test du prix (le prix testé est dans data-prix, et dans le texte de la question) -->
-        <div class="success" id="pricePanel" data-signup-success data-prix="19" hidden tabindex="-1">
+        <div class="success" id="pricePanel" data-signup-success data-prix="0" data-offre="1re édition gratuite, dîner à charge"
+          hidden tabindex="-1">
           <p class="hand">Inscription enregistrée&nbsp;!</p>
           <h3>Une dernière question, <span class="js-prenom"></span></h3>
-          <p>L'expérience est payante, elle comprend : le matching, le livre livré chez vous et
-            l’organisation de la rencontre.</p>
-          <p class="price-question" id="priceQuestion">Si votre place était proposée à <mark>19&nbsp;€</mark> (dîner non
-            compris), souhaiteriez-vous participer&nbsp;?</p>
+          <p>Bonne nouvelle&nbsp;: la première édition est <mark>gratuite</mark>. Le matching, le livre livré chez vous et
+            l’organisation de la rencontre sont offerts.</p>
+          <p class="price-question" id="priceQuestion">Seul le dîner reste à la charge des convives. Ça vous
+            convient&nbsp;?</p>
           <div class="price-options" role="group" aria-labelledby="priceQuestion">
-            <button class="option" type="button" data-prix-reponse="oui" aria-pressed="false">Oui, clairement</button>
+            <button class="option" type="button" data-prix-reponse="oui" aria-pressed="false">Oui, ça me va</button>
             <button class="option" type="button" data-prix-reponse="peut-etre" aria-pressed="false">Peut-être</button>
             <button class="option" type="button" data-prix-reponse="non" aria-pressed="false">Non</button>
           </div>
@@ -366,7 +367,7 @@
   <footer class="footer">
     <span class="brand">chapitrr<span>.</span></span>
     <span class="hand">Une histoire avant la rencontre.</span>
-    <span>Paris · 2026</span>
+    <span>Auxerre · 2026</span>
   </footer>
 
   <script src="app.js"></script>
