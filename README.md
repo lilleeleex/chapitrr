@@ -37,7 +37,7 @@ Le formulaire envoie vers Formspree : `https://formspree.io/f/xaeqwzon` (attribu
 Le parcours après le formulaire se fait en trois temps :
 
 1. **La candidature** part dès que le formulaire est validé (envoi `type = candidature`).
-2. **La question sur l'offre** s'affiche : la première édition est gratuite (matching, livre et organisation offerts), seul le dîner reste à la charge des convives. « Ça vous convient ? » Un clic sur Oui, ça me va / Peut-être / Non envoie la réponse (envoi `type = prix`).
+2. **La question sur l'offre** s'affiche : la première édition est gratuite (matching, livre et organisation offerts), seule l'addition reste à la charge des convives. La phrase s'adapte à la formule choisie : « Seul le dîner reste… », « Seul le verre reste… » ou « Seule l'addition, dîner ou verre, reste… ». « Ça vous convient ? » Un clic sur Oui, ça me va / Peut-être / Non envoie la réponse (envoi `type = prix`).
 3. **Le merci** s'affiche tout à la fin.
 
 Chaque candidat qui répond au prix génère donc **deux envois** dans Formspree, reliés par le même `candidature_id` (et le même email). La candidature est enregistrée même si la personne ne répond pas au prix. Ces deux envois comptent tous les deux dans le quota mensuel de Formspree.
@@ -56,6 +56,7 @@ Tous les champs sont envoyés à plat (pas de JSON imbriqué) : chacun arrive s�
 | `candidature_id` | identifiant court, par exemple `mux42272-fa138` | Relie la candidature à la réponse prix |
 | `prenom` | texte | |
 | `email` | email | Formspree s'en sert comme adresse de réponse |
+| `formule` | `diner`, `verre`, `les-deux` | Champ obligatoire : les tables se composent par formule |
 | `intention` | `amour`, `amitie`, `ouvert` (les deux), `soiree` (juste une belle soirée) | |
 | `genre` | `femme`, `homme`, `autre`, `non-precise` | |
 | `quiz_statut` | `complet`, `partiel`, `non fait` | Toujours envoyé : donne le taux de complétion du quiz |
@@ -74,12 +75,12 @@ Objet de l'email de notification : « Nouvelle inscription : <prénom> ».
 |---|---|---|
 | `type` | `prix` | |
 | `candidature_id` | le même que la candidature | |
-| `prenom`, `email` | ceux de la candidature | |
-| `prix_teste` | `0` (1re édition gratuite, dîner à la charge des convives) | Vient de l'attribut `data-prix` du bloc `#pricePanel` dans `index.html`. Les envois plus anciens peuvent contenir `49` ou `19` (prix testés avant) |
+| `prenom`, `email`, `formule` | ceux de la candidature | |
+| `prix_teste` | `0` (1re édition gratuite, addition à la charge des convives) | Vient de l'attribut `data-prix` du bloc `#pricePanel` dans `index.html`. Les envois plus anciens peuvent contenir `49` ou `19` (prix testés avant) |
 | `prix_reponse` | `oui` (Oui, ça me va), `peut-etre`, `non` | |
 | `landing` | `v2` | |
 
-Objet de l'email de notification : « 1re édition gratuite, dîner à charge : <prénom> a répondu « … » » (texte de l'attribut `data-offre`).
+Objet de l'email de notification : « 1re édition gratuite, addition à charge : <prénom> a répondu « … » » (texte de l'attribut `data-offre`).
 
 Pour tester une autre offre (un prix par exemple) : change `data-prix`, `data-offre` **et** le texte affiché dans `#pricePanel`.
 

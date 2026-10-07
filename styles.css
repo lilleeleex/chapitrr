@@ -156,7 +156,8 @@ h1 { max-width: 13ch; margin-bottom: clamp(22px, 3vw, 34px); font-size: clamp(42
 .f-item > span { margin-top: 6px; font-weight: 700; font-size: clamp(14px, 1.25vw, 18px); }
 .f-op { padding-top: .35em; font: 800 clamp(26px, 2.8vw, 42px)/1 var(--display); color: var(--tomato); }
 .f-result { padding: 0 .15em; }
-.f-result .scribble { left: -32%; top: -16%; width: 164%; height: 138%; }
+.f-result .scribble { left: -20%; top: -14%; width: 140%; height: 140%; }
+.f-item > .f-choice { margin-top: 0; font-size: clamp(21px, 1.9vw, 27px); color: var(--tomato-deep); transform: rotate(-4deg); }
 
 .lead { max-width: 34em; margin-bottom: clamp(24px, 3vw, 36px); font-size: clamp(18px, 1.4vw, 20px); color: var(--ink-soft); }
 .lead strong { color: var(--ink); font-weight: 700; }
