@@ -1,10 +1,5 @@
-// chapitre. — v2
-// Quiz (4 questions) → récapitulatif → inscription. Les réponses du quiz partent avec l'inscription.
-//
-// Chaque question nourrit une couche du matching :
-// - couche 1, compatibilité individuelle (A ↔ B) : "affinites"
-// - couche 2, compatibilité du groupe de quatre : "role", "ambiance", "lecture"
-// Le formulaire ajoute l'intention (amour, amitié…) et le genre. L'attirance sera demandée dans l'application.
+// Quiz → inscription (Formspree) → question sur l'offre → merci.
+// Les réponses du quiz partent avec l'inscription.
 
 const questions = [
   {
@@ -121,7 +116,7 @@ nextBtn.addEventListener("click", () => {
   if (selected === null) return;
   const q = questions[current];
   const option = q.options[selected];
-  answers[current] = { id: q.id, question: q.title, answer: option.label, value: option.value };
+  answers[current] = { id: q.id, answer: option.label, value: option.value };
 
   if (current < questions.length - 1) {
     current += 1;
@@ -142,13 +137,8 @@ $("quizRestart").addEventListener("click", () => {
   stage.querySelector(".q-title").focus({ preventScroll: true });
 });
 
-// Candidature : envoi à Formspree (adresse dans l'attribut action du formulaire), en deux temps :
-// 1. la candidature (type = "candidature"), dès que le formulaire est validé ;
-// 2. la réponse à la question sur l'offre (type = "prix"), affichée juste après :
-//    1re édition gratuite, addition (dîner ou verre) à la charge des convives (prix_teste = data-prix, ici 0).
-// Les deux envois partagent le même candidature_id pour les relier dans Formspree.
-// Sans JavaScript, le formulaire part quand même en HTML classique (sans la question sur le prix).
-// Tous les champs sont à plat (pas de JSON imbriqué) : chacun arrive séparément dans Formspree.
+// Envoi à Formspree (adresse : attribut action du formulaire), en deux temps reliés par candidature_id :
+// l'inscription (type = "candidature"), puis la réponse à la question sur l'offre (type = "prix").
 const form = $("signupForm");
 const pricePanel = $("pricePanel");
 const thanksPanel = $("thanksPanel");
@@ -159,20 +149,19 @@ const submitBtn = form.querySelector('[type="submit"]');
 const submitLabel = submitBtn.querySelector(".btn-label");
 const submitText = submitLabel.textContent;
 
-const LANDING_VERSION = "v2"; // pour comparer plusieurs versions de la landing dans Formspree
+const LANDING_VERSION = "v2"; // permet de comparer plusieurs versions de la landing dans Formspree
 const UTM_KEYS = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"];
-let candidate = null; // { id, prenom, email } une fois la candidature envoyée
+let candidate = null;
 
 const newCandidatureId = () => `${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 7)}`;
 
 function buildCandidature(id) {
-  const data = new FormData(form); // type, prenom, email, intention, genre, _gotcha
+  const data = new FormData(form);
   const prenom = form.elements.prenom.value.trim();
   data.set("prenom", prenom);
   data.set("email", form.elements.email.value.trim());
   data.append("candidature_id", id);
 
-  // Réponses du quiz, seulement celles qui ont été données
   const answered = answers.filter(Boolean);
   let quizStatus = "non fait";
   if (answered.length === questions.length) quizStatus = "complet";
@@ -180,7 +169,6 @@ function buildCandidature(id) {
   data.append("quiz_statut", quizStatus);
   answered.forEach(a => data.append(`quiz_${a.id}`, a.value));
 
-  // Provenance du visiteur, si le lien partagé contient des paramètres UTM
   data.append("landing", LANDING_VERSION);
   const params = new URLSearchParams(window.location.search);
   UTM_KEYS.forEach(key => {
@@ -188,7 +176,7 @@ function buildCandidature(id) {
     if (value) data.append(key, value);
   });
 
-  data.append("_subject", `Nouvelle inscription : ${prenom}`); // objet de l'email de notification
+  data.append("_subject", `Nouvelle inscription : ${prenom}`);
   return data;
 }
 
@@ -242,7 +230,6 @@ form.addEventListener("submit", async event => {
   }
 
   candidate = { id, prenom: data.get("prenom"), email: data.get("email"), formule: data.get("formule") };
-  // La question sur l'offre parle de la formule choisie
   const priceWhat = {
     diner: "Seul le dîner reste",
     verre: "Seul le verre reste",
@@ -252,7 +239,6 @@ form.addEventListener("submit", async event => {
   showPanel(pricePanel);
 });
 
-// Question sur le prix : un clic suffit, la réponse part aussitôt
 priceButtons.forEach(button => button.addEventListener("click", async () => {
   const prix = pricePanel.dataset.prix;
   priceError.hidden = true;
@@ -285,7 +271,7 @@ priceButtons.forEach(button => button.addEventListener("click", async () => {
   showPanel(thanksPanel);
 }));
 
-// Surligneur et cercles qui se dessinent quand ils entrent à l'écran
+// Surligneur et cercles dessinés à l'entrée dans l'écran
 const drawables = document.querySelectorAll("mark, [data-draw]");
 if (!reduceMotion && "IntersectionObserver" in window) {
   const observer = new IntersectionObserver(entries => {
@@ -300,8 +286,7 @@ if (!reduceMotion && "IntersectionObserver" in window) {
   drawables.forEach(el => el.classList.add("is-drawn"));
 }
 
-// Slider du hero : la photo du dessus s'envole et passe sous la pile.
-// Défilement auto pendant deux tours, sauf si l'utilisateur prend la main (ou préfère moins d'animations).
+// Slider du hero : défile seul pendant deux tours, s'arrête dès que l'utilisateur prend la main.
 const slider = $("heroSlider");
 const slides = [...slider.querySelectorAll(".polaroid")];
 const sliderDots = [...document.querySelectorAll(".slider-dot")];
@@ -350,7 +335,6 @@ slider.addEventListener("click", () => { takeOver(); nextSlide(); });
 });
 startSlider();
 
-// Bordure sous la barre de navigation une fois qu'on a scrollé
 const nav = $("nav");
 const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 8);
 window.addEventListener("scroll", onScroll, { passive: true });

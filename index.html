@@ -130,7 +130,7 @@
             <svg class="doodle" viewBox="0 0 64 64" aria-hidden="true">
               <circle cx="32" cy="32" r="12" />
               <path d="M26 32l4.5 4.5 8-9" />
-              <circle cx="32" cy="8" r="5" />même
+              <circle cx="32" cy="8" r="5" />
               <circle cx="56" cy="32" r="5" />
               <circle cx="32" cy="56" r="5" />
               <circle cx="8" cy="32" r="5" />
@@ -168,8 +168,8 @@
           <p class="step-when hand">Pendant 10&nbsp;jours</p>
           <h3>Vous lisez</h3>
           <p>Vous avez 10&nbsp;jours pour lire le livre. En chemin, l'app ponctue la lecture par quelques questions. <mark>Pas des
-              questions quelconques</mark>&nbsp;: des questions inattendues, qui font réfléchir et préparent la
-            rencontre.</p>
+              questions quelconques</mark>&nbsp;: des questions inspirées du livre, qui vous amènent doucement à parler
+            de vous et à découvrir les autres.</p>
         </li>
         <li class="step">
           <div class="step-top">
@@ -200,9 +200,6 @@
           <p class="idea-kicker hand">L’idée</p>
           <h2 id="idea-title">Avant de vous rencontrer, vous avez déjà <mark>quelque chose à vous dire.</mark></h2>
         </div>
-        <!-- <div class="idea-body">
-          <p>Nous réunissons quatre personnes qui pourraient avoir envie de se rencontrer. Elles reçoivent le même livre, le lisent pendant dix jours, puis se retrouvent autour d’un dîner.</p>
-        </div> -->
       </div>
 
       <div class="idea-points">
@@ -273,11 +270,11 @@
 
         <div class="quiz-footer" id="quizFooter">
           <p class="quiz-hint" id="quizHint">Choisissez la réponse qui vous ressemble le plus.</p>
-          <button class="btn" type="button" id="quizNext" data-quiz-next disabled>Continuer <span
+          <button class="btn" type="button" id="quizNext" disabled>Continuer <span
               aria-hidden="true">→</span></button>
         </div>
 
-        <div class="quiz-done" id="quizDone" data-quiz-done hidden tabindex="-1">
+        <div class="quiz-done" id="quizDone" hidden tabindex="-1">
           <p class="done-kicker hand">C’est noté&nbsp;!</p>
           <h3>Vos réponses, en bref</h3>
           <ul class="answers" id="quizAnswers"></ul>
@@ -296,6 +293,13 @@
         <h2 id="signup-title">Rejoignez la <em>1<sup>re</sup> édition</em></h2>
         <p class="section-lead"><strong>16&nbsp;places</strong> à Auxerre pour les tout premiers convives. Les inscriptions
           sont ouvertes&nbsp;: nous composerons les tables à partir de vos réponses.</p>
+
+        <div class="offer">
+          <p class="offer-tag hand">Offert&nbsp;!</p>
+          <h3>Première édition offerte</h3>
+          <p>Le livre, sa livraison et l’organisation sont pris en charge par chapitrr. Seule votre consommation au
+            restaurant ou au bar reste à votre charge.</p>
+        </div>
 
         <form class="signup-form" id="signupForm" action="https://formspree.io/f/xaeqwzon" method="POST">
           <input type="hidden" name="type" value="candidature">
@@ -349,13 +353,12 @@
               aria-hidden="true">→</span></button>
         </form>
 
-        <!-- Étape 2 : test du prix (le prix testé est dans data-prix, et dans le texte de la question) -->
-        <div class="success" id="pricePanel" data-signup-success data-prix="0" data-offre="1re édition gratuite, addition à charge"
+        <div class="success" id="pricePanel" data-prix="0" data-offre="1re édition gratuite, addition à charge"
           hidden tabindex="-1">
           <p class="hand">Inscription enregistrée&nbsp;!</p>
           <h3>Une dernière question, <span class="js-prenom"></span></h3>
-          <p>Bonne nouvelle&nbsp;: la première édition est <mark>gratuite</mark>. Le matching, le livre livré chez vous et
-            l’organisation de la rencontre sont offerts.</p>
+          <p>Pour rappel, la première édition est <mark>offerte</mark>&nbsp;: le livre, sa livraison et l’organisation
+            sont pris en charge par chapitrr.</p>
           <p class="price-question" id="priceQuestion"><span id="priceWhat">Seule l’addition, dîner ou verre, reste</span>
             à la charge des convives. Ça vous convient&nbsp;?</p>
           <div class="price-options" role="group" aria-labelledby="priceQuestion">
@@ -366,7 +369,6 @@
           <p class="form-error" id="priceError" role="alert" hidden></p>
         </div>
 
-        <!-- Étape 3 : le merci, tout à la fin -->
         <div class="success" id="thanksPanel" hidden tabindex="-1">
           <p class="hand">C’est noté&nbsp;!</p>
           <h3>Merci <span class="js-prenom"></span>.</h3>
