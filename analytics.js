@@ -134,6 +134,7 @@
     else stopPostHog();
   });
 
+  // Lien « Gérer les cookies » du pied de page, masqué sans JavaScript
   document.querySelectorAll("[data-consent-open]").forEach(link => {
     link.hidden = false;
     link.addEventListener("click", () => {

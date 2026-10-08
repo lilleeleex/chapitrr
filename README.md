@@ -1,14 +1,27 @@
-# chapitre. — landing v2
+# chapitrr. — landing page
 
-Deuxième version de la landing. La v1 reste intacte dans `../landing-book-match/`.
+Landing page de recrutement pour la première édition de chapitrr. (Auxerre, 2026) : 4 personnes, 1 livre, 10 jours, puis 1 dîner ou 1 verre au choix.
 
-## Ce qui change par rapport à la v1
+Site statique, sans framework ni étape de build :
 
-- **La formule est dans le hero** : « 4 personnes + 1 livre + 10 jours = 1 dîner », en très gros. En v1 elle était tout en bas.
-- **Typo plus détendue** : Fraunces en version « soft » et « wonky » pour les titres, Caveat (manuscrite) pour les notes dans la marge, Figtree pour le texte. Playfair Display disparaît.
+| Fichier | Rôle |
+|---|---|
+| `index.html` | La landing |
+| `confidentialite.html` | La politique de confidentialité |
+| `styles.css` | Les styles des deux pages |
+| `app.js` | Quiz, slider, envoi des inscriptions à Formspree |
+| `analytics.js` | Bandeau de consentement et mesure d'audience PostHog |
+
+## Mise en production
+
+Sur l'hébergement, n'envoie **que ces 5 fichiers**. Ni `README.md` ni le dossier `.git` : ils seraient lisibles par tout le monde (stratégie de prix, questions du test, historique).
+
+## Design
+
+- **La formule dans le hero** : « 4 personnes + 1 livre + 10 jours = 1 dîner ou verre », en très gros.
+- **Typo détendue** : Fraunces en version « soft » et « wonky » pour les titres, Caveat (manuscrite) pour les notes dans la marge, Figtree pour le texte.
 - **L'essentiel est surligné**, comme dans un livre annoté : surligneur jaune, cercles et flèches dessinés à la main, post-it « 1re édition · Auxerre 2026 ».
-- **Un ordre plus logique** : hero → comment ça marche (4 étapes) → l'idée → quiz → inscription. Le quiz arrive après l'explication et mène à l'inscription.
-- **Le bouton « Je veux participer » est partout** : barre du haut collante, hero, après les étapes, fin du quiz.
+- **Le parcours** : hero → comment ça marche (4 étapes) → l'idée → quiz → inscription. Le bouton « Participer » est présent dans la barre du haut, le hero, après les étapes et à la fin du quiz.
 - **Des questions pensées pour le test** : chaque question du quiz et du formulaire alimente une couche du matching ou une hypothèse à valider (voir plus bas).
 
 ## Ce que mesurent les questions
@@ -37,7 +50,7 @@ Le formulaire envoie vers Formspree : `https://formspree.io/f/xaeqwzon` (attribu
 Le parcours après le formulaire se fait en trois temps :
 
 1. **La candidature** part dès que le formulaire est validé (envoi `type = candidature`).
-2. **La question sur le prix** s'affiche. La première édition est offerte, et on demande : « Si votre place à une prochaine édition était proposée à 19 € (livre, livraison et organisation compris, consommation non comprise), souhaiteriez-vous participer ? ». Un clic sur Oui, clairement / Peut-être / Non envoie la réponse (envoi `type = prix`).
+2. **La question sur le prix** s'affiche. La première édition est offerte, et on demande : « Si votre place à une prochaine édition était proposée à 9,90 € (livre, livraison et organisation compris, consommation non comprise), souhaiteriez-vous participer ? ». Un clic sur Oui, clairement / Peut-être / Non envoie la réponse (envoi `type = prix`).
 3. **Le merci** s'affiche tout à la fin.
 
 Chaque candidat qui répond au prix génère donc **deux envois** dans Formspree, reliés par le même `candidature_id` (et le même email). La candidature est enregistrée même si la personne ne répond pas au prix. Ces deux envois comptent tous les deux dans le quota mensuel de Formspree.
@@ -76,11 +89,11 @@ Objet de l'email de notification : « Nouvelle inscription : <prénom> ».
 | `type` | `prix` | |
 | `candidature_id` | le même que la candidature | |
 | `prenom`, `email`, `formule` | ceux de la candidature | |
-| `prix_teste` | `19` | Prix testé pour les éditions suivantes, depuis l'attribut `data-prix` du bloc `#pricePanel` dans `index.html`. Les envois plus anciens peuvent contenir `49`, ou `0` (période où l'on demandait seulement si payer sa consommation convenait) |
+| `prix_teste` | `9,90` | Prix testé pour les éditions suivantes, depuis l'attribut `data-prix` du bloc `#pricePanel` dans `index.html`. Les envois plus anciens peuvent contenir `49`, `19`, ou `0` (période où l'on demandait seulement si payer sa consommation convenait) |
 | `prix_reponse` | `oui` (Oui, clairement), `peut-etre`, `non` | |
 | `landing` | `v2` | |
 
-Objet de l'email de notification : « Prix 19 € (éditions suivantes) : <prénom> a répondu « … » » (texte de l'attribut `data-offre`).
+Objet de l'email de notification : « Prix 9,90 € (éditions suivantes) : <prénom> a répondu « … » » (texte de l'attribut `data-offre`).
 
 Pour tester un autre prix : change `data-prix`, `data-offre` **et** le montant affiché dans la question (tout est dans `#pricePanel`).
 
