@@ -342,6 +342,8 @@ h1 { max-width: 13ch; margin-bottom: clamp(22px, 3vw, 34px); font-size: clamp(42
 .chip input:checked + span { background: var(--ink); color: var(--paper); }
 .chip input:focus-visible + span { outline: 3px solid var(--tomato-deep); outline-offset: 3px; }
 .wide { grid-column: 1 / -1; }
+.privacy-note { font-size: 15px; line-height: 1.5; color: var(--ink-soft); }
+.privacy-note a { color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
 .signup-form .btn-big { justify-self: start; margin-top: 6px; box-shadow: 5px 5px 0 var(--tomato-deep); }
 .success { padding: clamp(24px, 4vw, 40px); background: var(--card); border: 2px solid var(--ink); border-radius: 24px; box-shadow: 6px 6px 0 var(--ink); outline: none; }
 .success .hand { font-size: 34px; color: var(--tomato-deep); }
@@ -359,6 +361,18 @@ h1 { max-width: 13ch; margin-bottom: clamp(22px, 3vw, 34px); font-size: clamp(42
 }
 .footer .brand { font-size: 26px; color: var(--paper); }
 .footer .hand { font-size: 26px; color: var(--hl); }
+.footer a { color: var(--paper); text-underline-offset: 3px; }
+
+/* Politique de confidentialité */
+.legal { max-width: 760px; margin: 0 auto; padding: clamp(40px, 6vw, 80px) var(--gutter) clamp(64px, 8vw, 112px); }
+.legal h1 { max-width: none; margin-bottom: 12px; font-size: clamp(40px, 5vw, 64px); }
+.legal h2 { margin: 40px 0 12px; font-size: clamp(26px, 2.6vw, 32px); }
+.legal p, .legal ul { margin: 0 0 14px; color: var(--ink-soft); }
+.legal ul { padding-left: 1.2em; }
+.legal li { margin-bottom: 6px; }
+.legal a { color: var(--ink); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.legal .updated { font-size: 16px; }
+.todo { padding: 0 .3em; border-radius: 6px; background: var(--hl); color: var(--ink); font-weight: 700; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1180px) {

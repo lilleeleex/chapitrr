@@ -88,9 +88,9 @@ Pour tester le parcours : lance le serveur local, remplis le formulaire, répond
 
 ## RGPD
 
-La question sur l'attirance (« vous aimeriez rencontrer des hommes, des femmes… ») sera posée dans l'application, pas sur la landing. Combinée au genre, elle révèle l'orientation sexuelle, une donnée sensible (RGPD, article 9) : c'est dans l'app qu'il faudra un consentement explicite.
-
-La landing collecte prénom, email, intention, genre et réponses au quiz. Il faut quand même une politique de confidentialité avant la mise en ligne.
+- Sous le formulaire, une courte mention explique à quoi servent les réponses et renvoie vers `confidentialite.html`. Le pied de page contient aussi un lien « Confidentialité ».
+- `confidentialite.html` est la politique de confidentialité. **Avant la mise en ligne, complète les passages surlignés en jaune** (responsable du traitement et email de contact) et vérifie la durée de conservation proposée (12 mois après la première édition).
+- La question sur l'attirance (« vous aimeriez rencontrer des hommes, des femmes… ») sera posée dans l'application, pas sur la landing. Combinée au genre, elle révèle l'orientation sexuelle, une donnée sensible (RGPD, article 9) : c'est dans l'app qu'il faudra un consentement explicite.
 
 ## Photos du hero
 
