@@ -230,12 +230,6 @@ form.addEventListener("submit", async event => {
   }
 
   candidate = { id, prenom: data.get("prenom"), email: data.get("email"), formule: data.get("formule") };
-  const priceWhat = {
-    diner: "Seul le dîner reste",
-    verre: "Seul le verre reste",
-    "les-deux": "Seule l’addition, dîner ou verre, reste"
-  }[candidate.formule];
-  if (priceWhat) $("priceWhat").textContent = priceWhat;
   showPanel(pricePanel);
 });
 

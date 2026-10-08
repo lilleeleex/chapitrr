@@ -37,7 +37,7 @@ Le formulaire envoie vers Formspree : `https://formspree.io/f/xaeqwzon` (attribu
 Le parcours après le formulaire se fait en trois temps :
 
 1. **La candidature** part dès que le formulaire est validé (envoi `type = candidature`).
-2. **La question sur l'offre** s'affiche : la première édition est gratuite (matching, livre et organisation offerts), seule l'addition reste à la charge des convives. La phrase s'adapte à la formule choisie : « Seul le dîner reste… », « Seul le verre reste… » ou « Seule l'addition, dîner ou verre, reste… ». « Ça vous convient ? » Un clic sur Oui, ça me va / Peut-être / Non envoie la réponse (envoi `type = prix`).
+2. **La question sur le prix** s'affiche. La première édition est offerte, et on demande : « Si votre place à une prochaine édition était proposée à 19 € (livre, livraison et organisation compris, consommation non comprise), souhaiteriez-vous participer ? ». Un clic sur Oui, clairement / Peut-être / Non envoie la réponse (envoi `type = prix`).
 3. **Le merci** s'affiche tout à la fin.
 
 Chaque candidat qui répond au prix génère donc **deux envois** dans Formspree, reliés par le même `candidature_id` (et le même email). La candidature est enregistrée même si la personne ne répond pas au prix. Ces deux envois comptent tous les deux dans le quota mensuel de Formspree.
@@ -76,13 +76,13 @@ Objet de l'email de notification : « Nouvelle inscription : <prénom> ».
 | `type` | `prix` | |
 | `candidature_id` | le même que la candidature | |
 | `prenom`, `email`, `formule` | ceux de la candidature | |
-| `prix_teste` | `0` (1re édition gratuite, addition à la charge des convives) | Vient de l'attribut `data-prix` du bloc `#pricePanel` dans `index.html`. Les envois plus anciens peuvent contenir `49` ou `19` (prix testés avant) |
-| `prix_reponse` | `oui` (Oui, ça me va), `peut-etre`, `non` | |
+| `prix_teste` | `19` | Prix testé pour les éditions suivantes, depuis l'attribut `data-prix` du bloc `#pricePanel` dans `index.html`. Les envois plus anciens peuvent contenir `49`, ou `0` (période où l'on demandait seulement si payer sa consommation convenait) |
+| `prix_reponse` | `oui` (Oui, clairement), `peut-etre`, `non` | |
 | `landing` | `v2` | |
 
-Objet de l'email de notification : « 1re édition gratuite, addition à charge : <prénom> a répondu « … » » (texte de l'attribut `data-offre`).
+Objet de l'email de notification : « Prix 19 € (éditions suivantes) : <prénom> a répondu « … » » (texte de l'attribut `data-offre`).
 
-Pour tester une autre offre (un prix par exemple) : change `data-prix`, `data-offre` **et** le texte affiché dans `#pricePanel`.
+Pour tester un autre prix : change `data-prix`, `data-offre` **et** le montant affiché dans la question (tout est dans `#pricePanel`).
 
 Pour tester le parcours : lance le serveur local, remplis le formulaire, réponds à la question sur le prix, puis vérifie l'arrivée des deux envois dans Formspree.
 
