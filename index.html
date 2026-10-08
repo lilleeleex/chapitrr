@@ -356,13 +356,13 @@
             suppression à tout moment. <a href="confidentialite.html">Politique de confidentialité</a></p>
         </form>
 
-        <div class="success" id="pricePanel" data-prix="19" data-offre="Prix 19 € (éditions suivantes)" hidden
+        <div class="success" id="pricePanel" data-prix="9,90" data-offre="Prix 9,90 € (éditions suivantes)" hidden
           tabindex="-1">
           <p class="hand">Inscription enregistrée&nbsp;!</p>
           <h3>Une dernière question, <span class="js-prenom"></span></h3>
           <p>La première édition est offerte. Pour les suivantes, nous cherchons le prix juste, et votre avis compte.</p>
           <p class="price-question" id="priceQuestion">Si votre place à une prochaine édition était proposée à
-            <mark>19&nbsp;€</mark> (livre, livraison et organisation compris, consommation non comprise),
+            <mark>9,90&nbsp;€</mark> (livre, livraison et organisation compris, consommation non comprise),
             souhaiteriez-vous participer&nbsp;?</p>
           <div class="price-options" role="group" aria-labelledby="priceQuestion">
             <button class="option" type="button" data-prix-reponse="oui" aria-pressed="false">Oui, clairement</button>
@@ -385,9 +385,11 @@
   <footer class="footer">
     <span class="brand">chapitrr<span>.</span></span>
     <span class="hand">Une histoire avant la rencontre.</span>
-    <span>Auxerre · 2026 · <a href="confidentialite.html">Confidentialité</a></span>
+    <span>Auxerre · 2026 · <a href="confidentialite.html">Confidentialité</a> · <button class="consent-link" type="button"
+        data-consent-open hidden>Gérer les cookies</button></span>
   </footer>
 
+  <script src="analytics.js"></script>
   <script src="app.js"></script>
 </body>
 

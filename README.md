@@ -92,6 +92,46 @@ Pour tester le parcours : lance le serveur local, remplis le formulaire, répond
 - `confidentialite.html` est la politique de confidentialité. **Avant la mise en ligne, complète les passages surlignés en jaune** (responsable du traitement et email de contact) et vérifie la durée de conservation proposée (12 mois après la première édition).
 - La question sur l'attirance (« vous aimeriez rencontrer des hommes, des femmes… ») sera posée dans l'application, pas sur la landing. Combinée au genre, elle révèle l'orientation sexuelle, une donnée sensible (RGPD, article 9) : c'est dans l'app qu'il faudra un consentement explicite.
 
+## Mesure d'audience (PostHog)
+
+Toute la logique est dans `analytics.js` : bandeau de consentement, chargement de PostHog, envoi des événements et anti-doublons. `app.js` ne connaît pas PostHog : il signale seulement les étapes du parcours par des événements DOM (`chapitrr:quiz-started`, `chapitrr:quiz-answered`, `chapitrr:quiz-completed`, `chapitrr:signup-completed`). Si `analytics.js` est bloqué ou si le visiteur refuse, le site fonctionne normalement.
+
+### Consentement
+
+- PostHog n'est chargé **qu'après un clic sur « Accepter »**. Avant, aucune requête vers PostHog, aucun cookie, aucun stockage (à part le choix lui-même, clé `chapitrr_consent`).
+- Le choix est gardé 6 mois, puis redemandé.
+- Le lien « Gérer les cookies » du pied de page rouvre le bandeau. Un refus après acceptation coupe l'envoi et efface les données PostHog du navigateur (`ph_*`).
+
+### Événements
+
+| Événement | Quand | Propriétés |
+|---|---|---|
+| `$pageview` | Une fois par page vue, dès que le consentement est donné (événement natif de PostHog, envoyé manuellement) | |
+| `quiz_started` | Premier clic sur une réponse du quiz | |
+| `quiz_question_answered` | Clic sur « Continuer » / « Voir mes réponses » | `question_number` (1 à 4) |
+| `quiz_completed` | Fin des 4 questions | |
+| `signup_started` | Première saisie dans le formulaire d'inscription | |
+| `signup_completed` | Quand Formspree confirme l'inscription (jamais en cas d'échec) | |
+
+Chaque événement n'est envoyé qu'une fois par page vue (un quiz recommencé ne crée pas de doublon). Aucun prénom, email ou réponse n'est transmis. Un filtre `before_send` bloque tout autre événement : PostHog n'envoie rien d'automatique (pas d'autocapture, de session replay ni de sondage). Le `$pageview` natif est envoyé par `analytics.js` lui-même, ce qui alimente aussi le tableau de bord **Web analytics** de PostHog.
+
+### Provenance (UTM)
+
+`utm_source`, `utm_medium` et `utm_campaign` sont lus dans l'URL d'arrivée, puis enregistrés par PostHog (`register`) après le consentement : ils sont ajoutés à tous les événements, y compris `signup_completed`, même si l'utilisateur revient plus tard sans UTM dans l'URL. Une nouvelle visite avec d'autres UTM remplace les précédents (dernière source connue).
+
+Exemple de lien à partager : `https://chapitrr.fr/?utm_source=facebook&utm_medium=social&utm_campaign=lancement-auxerre`
+
+Les UTM d'un visiteur qui n'a pas encore accepté ne sont pas mémorisés : s'il quitte la page avant de choisir, sa source est perdue pour PostHog. Formspree, lui, reçoit toujours les UTM présents dans l'URL au moment de l'inscription.
+
+### Tester dans PostHog
+
+1. Ouvre le site dans une fenêtre privée, sans bloqueur de publicité (ils bloquent PostHog), avec par exemple `?utm_source=test&utm_medium=test&utm_campaign=verification`.
+2. Clique sur « Accepter ».
+3. Dans PostHog (eu.posthog.com), ouvre **Activity → Live events**. `$pageview` apparaît en quelques secondes.
+4. Fais le quiz puis remplis le formulaire. Chaque événement doit apparaître une seule fois, avec `utm_source = test`. Attention : une vraie inscription part aussi dans Formspree, supprime-la ensuite.
+
+Pour le tunnel : **Product analytics → New insight → Funnel**, avec les étapes `$pageview` → `quiz_started` → `quiz_completed` → `signup_started` → `signup_completed`, et une ventilation (breakdown) par `utm_source`.
+
 ## Photos du hero
 
 Le hero est un slider de 3 polaroids qui illustrent les étapes 2 à 4 : le livre qui arrive, la lecture, le dîner. Il défile seul pendant deux tours, puis s'arrête. Il s'arrête aussi dès qu'on clique, et au survol. Il ne défile jamais si l'utilisateur a demandé moins d'animations.

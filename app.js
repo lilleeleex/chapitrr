@@ -53,6 +53,8 @@ const questions = [
 ];
 
 const $ = id => document.getElementById(id);
+// Étapes du parcours, signalées à analytics.js (mesure d'audience)
+const signal = (name, detail) => document.dispatchEvent(new CustomEvent(`chapitrr:${name}`, { detail }));
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const card = $("quizCard");
@@ -110,6 +112,7 @@ stage.addEventListener("click", event => {
   });
   selected = Number(option.dataset.index);
   nextBtn.disabled = false;
+  signal("quiz-started");
 });
 
 nextBtn.addEventListener("click", () => {
@@ -117,6 +120,7 @@ nextBtn.addEventListener("click", () => {
   const q = questions[current];
   const option = q.options[selected];
   answers[current] = { id: q.id, answer: option.label, value: option.value };
+  signal("quiz-answered", { questionNumber: current + 1 });
 
   if (current < questions.length - 1) {
     current += 1;
@@ -125,6 +129,7 @@ nextBtn.addEventListener("click", () => {
     return;
   }
   showSummary();
+  signal("quiz-completed");
 });
 
 $("quizRestart").addEventListener("click", () => {
@@ -230,6 +235,7 @@ form.addEventListener("submit", async event => {
   }
 
   candidate = { id, prenom: data.get("prenom"), email: data.get("email"), formule: data.get("formule") };
+  signal("signup-completed");
   showPanel(pricePanel);
 });
 

@@ -329,6 +329,9 @@ h1 { max-width: 13ch; margin-bottom: clamp(22px, 3vw, 34px); font-size: clamp(42
 .hp { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; }
 .form-error { margin: 0; padding: 12px 16px; border: 2px solid var(--tomato-deep); border-radius: 14px; background: var(--card); color: var(--tomato-deep); font-weight: 700; }
 .field-help { margin: -2px 0 12px; font-size: 16px; color: var(--ink-soft); }
+/* Petit point devant les questions du formulaire */
+.signup-form legend { display: flex; align-items: center; gap: 10px; }
+.signup-form legend::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 50%; background: var(--ink); }
 .chips { display: flex; flex-wrap: wrap; gap: 10px; }
 .chip { position: relative; display: inline-flex; }
 .chip input { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
@@ -362,6 +365,19 @@ h1 { max-width: 13ch; margin-bottom: clamp(22px, 3vw, 34px); font-size: clamp(42
 .footer .brand { font-size: 26px; color: var(--paper); }
 .footer .hand { font-size: 26px; color: var(--hl); }
 .footer a { color: var(--paper); text-underline-offset: 3px; }
+.consent-link { padding: 0; border: 0; background: none; color: var(--paper); font: inherit; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; }
+
+/* Bandeau de consentement (mesure d'audience) */
+.consent {
+  position: fixed; right: 16px; bottom: 16px; z-index: 60;
+  width: min(440px, calc(100% - 32px)); padding: 20px 22px;
+  background: var(--card); border: 2px solid var(--ink); border-radius: var(--radius); box-shadow: 6px 6px 0 var(--ink);
+  font-size: 16px; line-height: 1.5;
+}
+.consent-title { margin-bottom: 6px; font: 800 22px/1.1 var(--display); font-variation-settings: "SOFT" 100, "WONK" 1; }
+.consent a { color: var(--ink); font-weight: 700; text-underline-offset: 3px; }
+.consent-actions { display: flex; gap: 10px; margin-top: 14px; }
+.consent-actions .btn { flex: 1; }
 
 /* Politique de confidentialité */
 .legal { max-width: 760px; margin: 0 auto; padding: clamp(40px, 6vw, 80px) var(--gutter) clamp(64px, 8vw, 112px); }
