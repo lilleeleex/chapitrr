@@ -115,7 +115,7 @@
   banner.hidden = true;
   banner.innerHTML = `
     <p class="consent-title">Mesure d’audience</p>
-    <p>Avec votre accord, nous utilisons PostHog pour compter les visites et les étapes du parcours (quiz,
+    <p>Avec votre accord, nous mesurons les visites et les étapes du parcours (quiz,
       inscription). Vos réponses et vos coordonnées ne sont jamais transmises.
       <a href="confidentialite.html#mesure-audience">En savoir plus</a></p>
     <div class="consent-actions">
