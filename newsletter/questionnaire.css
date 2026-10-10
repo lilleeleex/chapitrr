@@ -43,6 +43,7 @@
 
 .qn-q.is-invalid, .qn-identify.is-invalid { border-color: var(--tomato-deep); box-shadow: 6px 6px 0 var(--tomato-deep); }
 .qn-error { margin-top: 12px; font-weight: 700; color: var(--tomato-deep); }
+.qn-note { margin-top: 12px; font-size: 16px; font-weight: 600; color: var(--tomato-deep); }
 
 .qn-submit { display: grid; justify-items: start; gap: 16px; margin-top: 8px; }
 .qn-submit .btn-big { box-shadow: 5px 5px 0 var(--tomato-deep); }

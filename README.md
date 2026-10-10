@@ -148,24 +148,18 @@ Pour le tunnel : **Product analytics → New insight → Funnel**, avec les éta
 
 ## Questionnaire des inscrits (`newsletter/`)
 
-Page envoyée par email aux inscrits pour préparer la première édition : goûts de lecture, conversation, ambiance, âge, disponibilités, confirmation de participation. Elle reprend la feuille de style de la landing (`../styles.css`) et ajoute `questionnaire.css` et `questionnaire.js`. Pas de mesure d'audience, et la page n'est pas indexée par les moteurs de recherche (`noindex`).
+Page envoyée par email aux inscrits pour préparer la première édition : goûts de lecture, conversation, ambiance, âge, disponibilités, confirmation de participation. Page : `newsletter/questionnaire-inscriptions.html`. Elle reprend la feuille de style de la landing (`../styles.css`) et ajoute `questionnaire.css` et `questionnaire.js`. Pas de mesure d'audience, et la page n'est pas indexée par les moteurs de recherche (`noindex`).
 
-### 1. Relier un second formulaire Formspree
+### 1. Formulaire Formspree
 
-Crée un nouveau formulaire dans Formspree, puis remplace `A_REMPLACER` dans l'attribut `action` du formulaire de `newsletter/index.html` :
-
-```html
-<form class="qn-form" id="qnForm" action="https://formspree.io/f/TON_ID" method="POST">
-```
-
-Tant que ce n'est pas fait, la page affiche « Le questionnaire n'est pas encore relié à Formspree » au moment de l'envoi.
+Les réponses partent vers un second formulaire Formspree, distinct de celui des inscriptions : `https://formspree.io/f/mnpjvonl` (attribut `action` du formulaire de `newsletter/questionnaire-inscriptions.html`).
 
 ### 2. Un lien par inscrit
 
 Chaque inscrit reçoit un lien personnel :
 
 ```
-https://chapitrr.fr/newsletter/?id=<identifiant>&prenom=<prénom>
+https://chapitrr.fr/newsletter/questionnaire-inscriptions.html?id=<identifiant>&prenom=<prénom>
 ```
 
 - `id` : utilise le **`candidature_id`** de l'inscrit, présent dans l'export Formspree des inscriptions (par exemple `mux42272-fa138`). Il est opaque, ce qui évite de mettre l'email dans l'URL : les URL se retrouvent dans l'historique du navigateur et les journaux des serveurs. Tu retrouves ensuite l'inscrit en croisant les deux exports sur cet identifiant.
@@ -182,18 +176,18 @@ Le lien n'est pas un mot de passe : quelqu'un qui le reçoit peut répondre à l
 | `participant` | l'`id` du lien, ou l'email saisi si le lien n'en contient pas |
 | `identification` | `lien` ou `email` |
 | `prenom` | le prénom du lien, s'il y en a un |
-| `genres` | jusqu'à 3 parmi `contemporain`, `policier`, `science-fiction`, `fantasy`, `romance`, `aventure`, `humour`, `historique`, `surprise`, séparés par des virgules |
-| `conversation` | jusqu'à 2 parmi `anecdotes`, `parcours`, `points-de-vue`, `passions`, `projets`, `un-peu-de-tout` |
+| `genres` | jusqu'à 3 parmi `contemporain`, `histoires-vraies`, `policier`, `science-fiction`, `fantasy`, `romance`, `aventure`, `humour`, `historique`, `classiques`, séparés par des virgules ; ou `surprise` seul |
+| `conversation` | jusqu'à 2 parmi `decortiquer-livre`, `anecdotes`, `parcours`, `points-de-vue`, `passions`, `projets` ; ou `un-peu-de-tout` seul |
 | `ambiance` | `detendue`, `chaleureuse`, `curieuse`, `melange`, `surprise` |
 | `age` | `18-24`, `25-34`, `35-44`, `45-54`, `55-64`, `65-plus`, `non-precise` |
 | `generation` | `ma-generation`, `tous-ages`, `peu-importe` |
 | `sujets_a_eviter` | texte libre (facultatif, 600 caractères max) |
-| `disponibilites` | une ou plusieurs parmi `semaine-soir`, `vendredi-soir`, `samedi-journee`, `samedi-soir`, `dimanche-journee`, `flexible` |
-| `participation` | `oui`, `precisions`, `non` |
+| `disponibilites` | une ou plusieurs parmi `semaine-soir`, `vendredi-soir`, `samedi-journee`, `samedi-soir`, `dimanche-journee` ; ou `flexible` seul |
+| `participation` | `oui`, `oui-precisions` (partant(e), mais souhaite quelques précisions) |
 
 Objet de l'email de notification : « Questionnaire : <prénom> (<id>) ».
 
-Toutes les questions sont obligatoires sauf la 6 (sujets à éviter). Les questions à choix limité (« jusqu'à 3 », « jusqu'à 2 ») grisent les autres réponses une fois la limite atteinte.
+Toutes les questions sont obligatoires sauf la 6 (sujets à éviter). « Je préfère ne pas répondre » (tranche d'âge, question 4) et « plutôt de ma génération » (question 5) s'excluent dès la sélection : choisir l'une grise l'autre, avec une note qui explique pourquoi. Les questions à choix limité (« jusqu'à 3 », « jusqu'à 2 ») grisent les autres réponses une fois la limite atteinte. « Peu importe, j'aime les surprises », « Un peu de tout, selon le feeling » et « Mes disponibilités sont assez flexibles » sont exclusives : les cocher décoche les autres réponses de la question, et inversement.
 
 Si quelqu'un répond deux fois, Formspree garde les deux envois : retiens le plus récent pour un même `participant`.
 

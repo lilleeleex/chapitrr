@@ -31,15 +31,38 @@ if (prenom) {
   thanks.querySelector(".js-prenom").textContent = `, ${prenom}`;
 }
 
-// Limite de réponses (« jusqu'à 3 », « jusqu'à 2 ») : les autres choix se grisent une fois la limite atteinte
-form.querySelectorAll(".qn-q[data-max]").forEach(group => {
-  const max = Number(group.dataset.max);
+// Questions à choix multiples :
+// - une réponse « data-exclusive » (Peu importe, Un peu de tout, Flexibles) ne se combine pas avec les autres ;
+// - limite de réponses (« jusqu'à 3 », « jusqu'à 2 ») : les autres choix se grisent une fois la limite atteinte.
+form.querySelectorAll(".qn-q").forEach(group => {
   const boxes = [...group.querySelectorAll('input[type="checkbox"]')];
-  group.addEventListener("change", () => {
+  if (!boxes.length) return;
+  const max = Number(group.dataset.max || boxes.length);
+  group.addEventListener("change", event => {
+    const changed = event.target;
+    if (changed.checked) {
+      boxes.forEach(box => {
+        if (box !== changed && (changed.hasAttribute("data-exclusive") || box.hasAttribute("data-exclusive"))) box.checked = false;
+      });
+    }
     const count = boxes.filter(box => box.checked).length;
-    boxes.forEach(box => { box.disabled = !box.checked && count >= max; });
+    boxes.forEach(box => { box.disabled = !box.checked && count >= max && !box.hasAttribute("data-exclusive"); });
   });
 });
+
+// Rencontrer des personnes « de ma génération » suppose de connaître sa tranche d'âge :
+// « Je préfère ne pas répondre » (question 4) et « plutôt de ma génération » (question 5) s'excluent dès la sélection
+const ageUnknown = form.querySelector('input[name="age"][value="non-precise"]');
+const myGeneration = form.querySelector('input[name="generation"][value="ma-generation"]');
+function syncAgeAndGeneration() {
+  if (ageUnknown.checked && myGeneration.checked) myGeneration.checked = false; // état restauré par le navigateur
+  myGeneration.disabled = ageUnknown.checked;
+  ageUnknown.disabled = myGeneration.checked;
+  document.getElementById("qnGenerationNote").hidden = !ageUnknown.checked;
+  document.getElementById("qnAgeNote").hidden = !myGeneration.checked;
+}
+form.addEventListener("change", syncAgeAndGeneration);
+syncAgeAndGeneration();
 
 function setError(block, message) {
   const error = block.querySelector(".qn-error");
@@ -49,10 +72,9 @@ function setError(block, message) {
   error.hidden = !message;
 }
 
-// Retire l'erreur d'une question dès qu'on y répond
-form.addEventListener("change", event => {
-  const block = event.target.closest(".qn-q, .qn-identify");
-  if (block && block.classList.contains("is-invalid")) setError(block, "");
+// Réévalue les questions en erreur à chaque réponse (une erreur peut dépendre d'une autre question)
+form.addEventListener("change", () => {
+  form.querySelectorAll(".qn-q.is-invalid").forEach(block => setError(block, errorFor(block)));
 });
 emailInput.addEventListener("input", () => setError(identify, ""));
 
@@ -125,13 +147,6 @@ form.addEventListener("submit", async event => {
   if (invalid) {
     invalid.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
     invalid.querySelector("input, textarea").focus({ preventScroll: true });
-    return;
-  }
-
-  if (form.action.includes("A_REMPLACER")) {
-    console.error("Questionnaire : renseigne l'adresse Formspree dans l'attribut action du formulaire.");
-    formError.textContent = "Le questionnaire n’est pas encore relié à Formspree.";
-    formError.hidden = false;
     return;
   }
 

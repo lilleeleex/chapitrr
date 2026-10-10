@@ -35,7 +35,7 @@
           mauvaises réponses&nbsp;: réponds simplement selon tes envies&nbsp;!</span></p>
     </section>
 
-    <form class="qn-form" id="qnForm" action="https://formspree.io/f/A_REMPLACER" method="POST">
+    <form class="qn-form" id="qnForm" action="https://formspree.io/f/mnpjvonl" method="POST">
       <input type="hidden" name="type" value="questionnaire">
       <input type="hidden" name="participant" id="qnParticipant">
 
@@ -51,7 +51,8 @@
         <legend><span class="qn-num" aria-hidden="true">1</span> Quels genres d’histoires aimerais-tu découvrir&nbsp;?</legend>
         <p class="qn-hint" id="q1-hint">Choisis jusqu’à 3&nbsp;réponses.</p>
         <div class="chips">
-          <label class="chip"><input type="checkbox" name="genres" value="contemporain"><span>Romans contemporains / histoires de vie</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="contemporain"><span>Romans contemporains</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="histoires-vraies"><span>Histoires vraies&nbsp;: récits, témoignages, autobiographies</span></label>
           <label class="chip"><input type="checkbox" name="genres" value="policier"><span>Policier / thriller / mystère</span></label>
           <label class="chip"><input type="checkbox" name="genres" value="science-fiction"><span>Science-fiction / anticipation</span></label>
           <label class="chip"><input type="checkbox" name="genres" value="fantasy"><span>Fantasy / fantastique</span></label>
@@ -59,7 +60,8 @@
           <label class="chip"><input type="checkbox" name="genres" value="aventure"><span>Aventure / voyage</span></label>
           <label class="chip"><input type="checkbox" name="genres" value="humour"><span>Humour / satire</span></label>
           <label class="chip"><input type="checkbox" name="genres" value="historique"><span>Romans historiques</span></label>
-          <label class="chip"><input type="checkbox" name="genres" value="surprise"><span>Peu importe, j’aime les surprises&nbsp;!</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="classiques"><span>Classiques de la littérature</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="surprise" data-exclusive><span>Peu importe, j’aime les surprises&nbsp;!</span></label>
         </div>
         <p class="qn-error" role="alert" hidden></p>
       </fieldset>
@@ -69,12 +71,13 @@
           personnes que tu découvres&nbsp;?</legend>
         <p class="qn-hint" id="q2-hint">Choisis jusqu’à 2&nbsp;réponses.</p>
         <div class="chips">
+          <label class="chip"><input type="checkbox" name="conversation" value="decortiquer-livre"><span>Décortiquer le livre&nbsp;: personnages, interprétations, ce qu’il nous a fait ressentir</span></label>
           <label class="chip"><input type="checkbox" name="conversation" value="anecdotes"><span>Raconter des anecdotes et rire ensemble</span></label>
           <label class="chip"><input type="checkbox" name="conversation" value="parcours"><span>Partager nos expériences et nos parcours de vie</span></label>
           <label class="chip"><input type="checkbox" name="conversation" value="points-de-vue"><span>Échanger nos points de vue, même lorsqu’ils sont différents</span></label>
           <label class="chip"><input type="checkbox" name="conversation" value="passions"><span>Découvrir les passions et les univers des autres</span></label>
           <label class="chip"><input type="checkbox" name="conversation" value="projets"><span>Parler de nos envies, de nos projets et de nos rêves</span></label>
-          <label class="chip"><input type="checkbox" name="conversation" value="un-peu-de-tout"><span>Un peu de tout, selon le feeling&nbsp;!</span></label>
+          <label class="chip"><input type="checkbox" name="conversation" value="un-peu-de-tout" data-exclusive><span>Un peu de tout, selon le feeling&nbsp;!</span></label>
         </div>
         <p class="qn-error" role="alert" hidden></p>
       </fieldset>
@@ -105,6 +108,8 @@
           <label class="chip"><input type="radio" name="age" value="65-plus"><span>65&nbsp;ans et plus</span></label>
           <label class="chip"><input type="radio" name="age" value="non-precise"><span>Je préfère ne pas répondre</span></label>
         </div>
+        <p class="qn-note" id="qnAgeNote" aria-live="polite" hidden>«&nbsp;Je préfère ne pas répondre&nbsp;» n’est pas
+          possible si tu souhaites rencontrer des personnes de ta génération (question&nbsp;5).</p>
         <p class="qn-error" role="alert" hidden></p>
       </fieldset>
 
@@ -116,6 +121,8 @@
           <label class="chip"><input type="radio" name="generation" value="tous-ages"><span>Rencontrer des personnes de tous âges</span></label>
           <label class="chip"><input type="radio" name="generation" value="peu-importe"><span>Peu importe, j’aime me laisser surprendre&nbsp;!</span></label>
         </div>
+        <p class="qn-note" id="qnGenerationNote" aria-live="polite" hidden>Pour rencontrer des personnes de ta génération,
+          indique ta tranche d’âge à la question&nbsp;4.</p>
         <p class="qn-error" role="alert" hidden></p>
       </fieldset>
 
@@ -138,7 +145,7 @@
           <label class="chip"><input type="checkbox" name="disponibilites" value="samedi-journee"><span>Le samedi en journée</span></label>
           <label class="chip"><input type="checkbox" name="disponibilites" value="samedi-soir"><span>Le samedi soir</span></label>
           <label class="chip"><input type="checkbox" name="disponibilites" value="dimanche-journee"><span>Le dimanche en journée</span></label>
-          <label class="chip"><input type="checkbox" name="disponibilites" value="flexible"><span>Mes disponibilités sont assez flexibles</span></label>
+          <label class="chip"><input type="checkbox" name="disponibilites" value="flexible" data-exclusive><span>Mes disponibilités sont assez flexibles</span></label>
         </div>
         <p class="qn-error" role="alert" hidden></p>
       </fieldset>
@@ -149,8 +156,7 @@
         <p class="qn-hint" id="q8-hint">Une seule réponse.</p>
         <div class="chips">
           <label class="chip"><input type="radio" name="participation" value="oui" required><span>Oui, je suis partant(e)&nbsp;!</span></label>
-          <label class="chip"><input type="radio" name="participation" value="precisions"><span>L’idée me plaît, mais j’aimerais avoir quelques précisions</span></label>
-          <label class="chip"><input type="radio" name="participation" value="non"><span>Finalement, je préfère ne pas participer cette fois-ci</span></label>
+          <label class="chip"><input type="radio" name="participation" value="precisions"><span>L'idée me plaît, mais j’aimerais avoir quelques précisions</span></label>
         </div>
         <p class="qn-error" role="alert" hidden></p>
       </fieldset>
