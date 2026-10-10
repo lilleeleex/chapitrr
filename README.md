@@ -177,7 +177,7 @@ Le lien n'est pas un mot de passe : quelqu'un qui le reçoit peut répondre à l
 | `identification` | `lien` ou `email` |
 | `prenom` | le prénom du lien, s'il y en a un |
 | `genres` | jusqu'à 3 parmi `contemporain`, `histoires-vraies`, `policier`, `science-fiction`, `fantasy`, `romance`, `aventure`, `humour`, `historique`, `classiques`, séparés par des virgules ; ou `surprise` seul |
-| `conversation` | jusqu'à 2 parmi `decortiquer-livre`, `anecdotes`, `parcours`, `points-de-vue`, `passions`, `projets` ; ou `un-peu-de-tout` seul |
+| `conversation` | jusqu'à 3 parmi `decortiquer-livre`, `anecdotes`, `parcours`, `points-de-vue`, `passions`, `projets` ; ou `un-peu-de-tout` seul |
 | `ambiance` | `detendue`, `chaleureuse`, `curieuse`, `melange`, `surprise` |
 | `age` | `18-24`, `25-34`, `35-44`, `45-54`, `55-64`, `65-plus`, `non-precise` |
 | `generation` | `ma-generation`, `tous-ages`, `peu-importe` |
@@ -187,7 +187,7 @@ Le lien n'est pas un mot de passe : quelqu'un qui le reçoit peut répondre à l
 
 Objet de l'email de notification : « Questionnaire : <prénom> (<id>) ».
 
-Toutes les questions sont obligatoires sauf la 6 (sujets à éviter). « Je préfère ne pas répondre » (tranche d'âge, question 4) et « plutôt de ma génération » (question 5) s'excluent dès la sélection : choisir l'une grise l'autre, avec une note qui explique pourquoi. Les questions à choix limité (« jusqu'à 3 », « jusqu'à 2 ») grisent les autres réponses une fois la limite atteinte. « Peu importe, j'aime les surprises », « Un peu de tout, selon le feeling » et « Mes disponibilités sont assez flexibles » sont exclusives : les cocher décoche les autres réponses de la question, et inversement.
+Toutes les questions sont obligatoires sauf la 6 (sujets à éviter). « Je préfère ne pas répondre » (tranche d'âge, question 4) et « plutôt de ma génération » (question 5) s'excluent dès la sélection : choisir l'une grise l'autre, avec une note qui explique pourquoi. Les questions 1 et 2, limitées à 3 réponses, grisent les autres réponses une fois la limite atteinte. « Peu importe, j'aime les surprises », « Un peu de tout, selon le feeling » et « Mes disponibilités sont assez flexibles » sont exclusives : les cocher décoche les autres réponses de la question, et inversement.
 
 Si quelqu'un répond deux fois, Formspree garde les deux envois : retiens le plus récent pour un même `participant`.
 

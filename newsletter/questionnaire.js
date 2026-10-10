@@ -33,7 +33,7 @@ if (prenom) {
 
 // Questions à choix multiples :
 // - une réponse « data-exclusive » (Peu importe, Un peu de tout, Flexibles) ne se combine pas avec les autres ;
-// - limite de réponses (« jusqu'à 3 », « jusqu'à 2 ») : les autres choix se grisent une fois la limite atteinte.
+// - limite de réponses (data-max, « jusqu'à 3 ») : les autres choix se grisent une fois la limite atteinte.
 form.querySelectorAll(".qn-q").forEach(group => {
   const boxes = [...group.querySelectorAll('input[type="checkbox"]')];
   if (!boxes.length) return;
