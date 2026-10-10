@@ -11,10 +11,11 @@ Site statique, sans framework ni étape de build :
 | `styles.css` | Les styles des deux pages |
 | `app.js` | Quiz, slider, envoi des inscriptions à Formspree |
 | `analytics.js` | Bandeau de consentement et mesure d'audience PostHog |
+| `newsletter/` | Questionnaire de préparation envoyé par email aux inscrits (voir plus bas) |
 
 ## Mise en production
 
-Sur l'hébergement, n'envoie **que ces 5 fichiers**. Ni `README.md` ni le dossier `.git` : ils seraient lisibles par tout le monde (stratégie de prix, questions du test, historique).
+Sur l'hébergement, n'envoie **que ces fichiers et le dossier `newsletter/`**. Ni `README.md` ni le dossier `.git` : ils seraient lisibles par tout le monde (stratégie de prix, questions du test, historique).
 
 ## Design
 
@@ -144,6 +145,57 @@ Les UTM d'un visiteur qui n'a pas encore accepté ne sont pas mémorisés : s'il
 4. Fais le quiz puis remplis le formulaire. Chaque événement doit apparaître une seule fois, avec `utm_source = test`. Attention : une vraie inscription part aussi dans Formspree, supprime-la ensuite.
 
 Pour le tunnel : **Product analytics → New insight → Funnel**, avec les étapes `$pageview` → `quiz_started` → `quiz_completed` → `signup_started` → `signup_completed`, et une ventilation (breakdown) par `utm_source`.
+
+## Questionnaire des inscrits (`newsletter/`)
+
+Page envoyée par email aux inscrits pour préparer la première édition : goûts de lecture, conversation, ambiance, âge, disponibilités, confirmation de participation. Elle reprend la feuille de style de la landing (`../styles.css`) et ajoute `questionnaire.css` et `questionnaire.js`. Pas de mesure d'audience, et la page n'est pas indexée par les moteurs de recherche (`noindex`).
+
+### 1. Relier un second formulaire Formspree
+
+Crée un nouveau formulaire dans Formspree, puis remplace `A_REMPLACER` dans l'attribut `action` du formulaire de `newsletter/index.html` :
+
+```html
+<form class="qn-form" id="qnForm" action="https://formspree.io/f/TON_ID" method="POST">
+```
+
+Tant que ce n'est pas fait, la page affiche « Le questionnaire n'est pas encore relié à Formspree » au moment de l'envoi.
+
+### 2. Un lien par inscrit
+
+Chaque inscrit reçoit un lien personnel :
+
+```
+https://chapitrr.fr/newsletter/?id=<identifiant>&prenom=<prénom>
+```
+
+- `id` : utilise le **`candidature_id`** de l'inscrit, présent dans l'export Formspree des inscriptions (par exemple `mux42272-fa138`). Il est opaque, ce qui évite de mettre l'email dans l'URL : les URL se retrouvent dans l'historique du navigateur et les journaux des serveurs. Tu retrouves ensuite l'inscrit en croisant les deux exports sur cet identifiant.
+- `prenom` : facultatif, il personnalise l'accueil (« Merci d'avoir rejoint l'aventure, Camille ! ») et le message de fin. Encode-le s'il contient des accents ou des espaces (`Jos%C3%A9`, `Anne%20Marie`). La plupart des outils d'emailing le font tout seuls avec une variable de fusion.
+- **Sans `id`** (lien partagé ou tronqué), la page demande l'email d'inscription pour relier les réponses.
+
+Le lien n'est pas un mot de passe : quelqu'un qui le reçoit peut répondre à la place de l'inscrit. Pour un questionnaire de préférences, c'est un risque acceptable.
+
+### 3. Données reçues dans Formspree
+
+| Champ | Valeurs |
+|---|---|
+| `type` | `questionnaire` |
+| `participant` | l'`id` du lien, ou l'email saisi si le lien n'en contient pas |
+| `identification` | `lien` ou `email` |
+| `prenom` | le prénom du lien, s'il y en a un |
+| `genres` | jusqu'à 3 parmi `contemporain`, `policier`, `science-fiction`, `fantasy`, `romance`, `aventure`, `humour`, `historique`, `surprise`, séparés par des virgules |
+| `conversation` | jusqu'à 2 parmi `anecdotes`, `parcours`, `points-de-vue`, `passions`, `projets`, `un-peu-de-tout` |
+| `ambiance` | `detendue`, `chaleureuse`, `curieuse`, `melange`, `surprise` |
+| `age` | `18-24`, `25-34`, `35-44`, `45-54`, `55-64`, `65-plus`, `non-precise` |
+| `generation` | `ma-generation`, `tous-ages`, `peu-importe` |
+| `sujets_a_eviter` | texte libre (facultatif, 600 caractères max) |
+| `disponibilites` | une ou plusieurs parmi `semaine-soir`, `vendredi-soir`, `samedi-journee`, `samedi-soir`, `dimanche-journee`, `flexible` |
+| `participation` | `oui`, `precisions`, `non` |
+
+Objet de l'email de notification : « Questionnaire : <prénom> (<id>) ».
+
+Toutes les questions sont obligatoires sauf la 6 (sujets à éviter). Les questions à choix limité (« jusqu'à 3 », « jusqu'à 2 ») grisent les autres réponses une fois la limite atteinte.
+
+Si quelqu'un répond deux fois, Formspree garde les deux envois : retiens le plus récent pour un même `participant`.
 
 ## Photos du hero
 

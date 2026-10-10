@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="description" content="Questionnaire de préparation de la première édition de chapitrr., réservé aux inscrits.">
+  <meta name="theme-color" content="#f7f1e5">
+  <title>Faisons un peu connaissance — chapitrr.</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Caveat:wght@700&family=Figtree:wght@400..800&family=Fraunces:ital,opsz,wght,SOFT,WONK@0,9..144,600..900,0..100,0..1;1,9..144,600..900,0..100,0..1&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="../styles.css">
+  <link rel="stylesheet" href="questionnaire.css">
+  <script>document.documentElement.classList.add("js");</script>
+</head>
+
+<body>
+  <header class="nav is-scrolled">
+    <a class="brand" href="../index.html" aria-label="chapitrr., accueil">chapitrr<span>.</span></a>
+  </header>
+
+  <main class="qn">
+    <section class="qn-intro" aria-labelledby="qn-title">
+      <p class="kicker hand"><span>1<sup>re</sup> édition · Auxerre</span></p>
+      <h1 id="qn-title">Faisons un peu <mark>connaissance</mark>&nbsp;!</h1>
+      <p class="qn-hello" id="qnHello">Merci d’avoir rejoint l’aventure chapitrr&nbsp;!</p>
+      <p>Avant de préparer cette première édition à Auxerre, j’aimerais en découvrir un peu plus sur tes goûts et tes
+        envies. Tes réponses m’aideront à choisir les livres, à composer les groupes de quatre et à organiser les
+        rencontres.</p>
+      <p class="qn-meta"><span class="qn-time">Environ 3&nbsp;minutes</span> <span class="hand">Pas de bonnes ou de
+          mauvaises réponses&nbsp;: réponds simplement selon tes envies&nbsp;!</span></p>
+    </section>
+
+    <form class="qn-form" id="qnForm" action="https://formspree.io/f/A_REMPLACER" method="POST">
+      <input type="hidden" name="type" value="questionnaire">
+      <input type="hidden" name="participant" id="qnParticipant">
+
+      <div class="qn-identify field" id="qnIdentify">
+        <label for="qnEmail">Ton email d’inscription</label>
+        <p class="field-help">Ce lien n’est pas personnalisé&nbsp;: indique l’email utilisé lors de ton inscription
+          pour que je puisse relier tes réponses.</p>
+        <input id="qnEmail" name="email" type="email" autocomplete="email" placeholder="toi@email.com">
+        <p class="qn-error" role="alert" hidden></p>
+      </div>
+
+      <fieldset class="qn-q" data-min="1" data-max="3" aria-describedby="q1-hint">
+        <legend><span class="qn-num" aria-hidden="true">1</span> Quels genres d’histoires aimerais-tu découvrir&nbsp;?</legend>
+        <p class="qn-hint" id="q1-hint">Choisis jusqu’à 3&nbsp;réponses.</p>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" name="genres" value="contemporain"><span>Romans contemporains / histoires de vie</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="policier"><span>Policier / thriller / mystère</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="science-fiction"><span>Science-fiction / anticipation</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="fantasy"><span>Fantasy / fantastique</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="romance"><span>Romance / histoires d’amour</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="aventure"><span>Aventure / voyage</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="humour"><span>Humour / satire</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="historique"><span>Romans historiques</span></label>
+          <label class="chip"><input type="checkbox" name="genres" value="surprise"><span>Peu importe, j’aime les surprises&nbsp;!</span></label>
+        </div>
+        <p class="qn-error" role="alert" hidden></p>
+      </fieldset>
+
+      <fieldset class="qn-q" data-min="1" data-max="2" aria-describedby="q2-hint">
+        <legend><span class="qn-num" aria-hidden="true">2</span> Quel genre de conversation aimes-tu avoir avec des
+          personnes que tu découvres&nbsp;?</legend>
+        <p class="qn-hint" id="q2-hint">Choisis jusqu’à 2&nbsp;réponses.</p>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" name="conversation" value="anecdotes"><span>Raconter des anecdotes et rire ensemble</span></label>
+          <label class="chip"><input type="checkbox" name="conversation" value="parcours"><span>Partager nos expériences et nos parcours de vie</span></label>
+          <label class="chip"><input type="checkbox" name="conversation" value="points-de-vue"><span>Échanger nos points de vue, même lorsqu’ils sont différents</span></label>
+          <label class="chip"><input type="checkbox" name="conversation" value="passions"><span>Découvrir les passions et les univers des autres</span></label>
+          <label class="chip"><input type="checkbox" name="conversation" value="projets"><span>Parler de nos envies, de nos projets et de nos rêves</span></label>
+          <label class="chip"><input type="checkbox" name="conversation" value="un-peu-de-tout"><span>Un peu de tout, selon le feeling&nbsp;!</span></label>
+        </div>
+        <p class="qn-error" role="alert" hidden></p>
+      </fieldset>
+
+      <fieldset class="qn-q" data-required aria-describedby="q3-hint">
+        <legend><span class="qn-num" aria-hidden="true">3</span> Dans quel type d’ambiance te sentirais-tu le plus à
+          l’aise&nbsp;?</legend>
+        <p class="qn-hint" id="q3-hint">Une seule réponse.</p>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="ambiance" value="detendue" required><span>Détendue, spontanée et pleine d’humour</span></label>
+          <label class="chip"><input type="radio" name="ambiance" value="chaleureuse"><span>Chaleureuse, avec des échanges un peu plus personnels</span></label>
+          <label class="chip"><input type="radio" name="ambiance" value="curieuse"><span>Curieuse, avec des discussions et des débats</span></label>
+          <label class="chip"><input type="radio" name="ambiance" value="melange"><span>Un mélange de tout ça</span></label>
+          <label class="chip"><input type="radio" name="ambiance" value="surprise"><span>Peu importe, j’aime me laisser surprendre&nbsp;!</span></label>
+        </div>
+        <p class="qn-error" role="alert" hidden></p>
+      </fieldset>
+
+      <fieldset class="qn-q" data-required aria-describedby="q4-hint">
+        <legend><span class="qn-num" aria-hidden="true">4</span> Quelle est ta tranche d’âge&nbsp;?</legend>
+        <p class="qn-hint" id="q4-hint">Une seule réponse.</p>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="age" value="18-24" required><span>18–24&nbsp;ans</span></label>
+          <label class="chip"><input type="radio" name="age" value="25-34"><span>25–34&nbsp;ans</span></label>
+          <label class="chip"><input type="radio" name="age" value="35-44"><span>35–44&nbsp;ans</span></label>
+          <label class="chip"><input type="radio" name="age" value="45-54"><span>45–54&nbsp;ans</span></label>
+          <label class="chip"><input type="radio" name="age" value="55-64"><span>55–64&nbsp;ans</span></label>
+          <label class="chip"><input type="radio" name="age" value="65-plus"><span>65&nbsp;ans et plus</span></label>
+          <label class="chip"><input type="radio" name="age" value="non-precise"><span>Je préfère ne pas répondre</span></label>
+        </div>
+        <p class="qn-error" role="alert" hidden></p>
+      </fieldset>
+
+      <fieldset class="qn-q" data-required aria-describedby="q5-hint">
+        <legend><span class="qn-num" aria-hidden="true">5</span> Pour cette rencontre, tu préférerais…</legend>
+        <p class="qn-hint" id="q5-hint">Une seule réponse.</p>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="generation" value="ma-generation" required><span>Rencontrer des personnes plutôt de ma génération</span></label>
+          <label class="chip"><input type="radio" name="generation" value="tous-ages"><span>Rencontrer des personnes de tous âges</span></label>
+          <label class="chip"><input type="radio" name="generation" value="peu-importe"><span>Peu importe, j’aime me laisser surprendre&nbsp;!</span></label>
+        </div>
+        <p class="qn-error" role="alert" hidden></p>
+      </fieldset>
+
+      <fieldset class="qn-q" aria-describedby="q6-hint">
+        <legend><span class="qn-num" aria-hidden="true">6</span> Y a-t-il des genres ou des sujets que tu préférerais
+          éviter dans le livre&nbsp;?</legend>
+        <p class="qn-hint" id="q6-hint">Réponse libre, facultative. Par exemple&nbsp;: les histoires très violentes, les
+          récits particulièrement tristes ou certains thèmes sensibles.</p>
+        <label class="qn-textarea-label" for="qnAvoid">Ta réponse</label>
+        <textarea id="qnAvoid" name="sujets_a_eviter" rows="4" maxlength="600"></textarea>
+      </fieldset>
+
+      <fieldset class="qn-q" data-min="1" aria-describedby="q7-hint">
+        <legend><span class="qn-num" aria-hidden="true">7</span> Quand serais-tu généralement disponible pour la
+          rencontre à Auxerre&nbsp;?</legend>
+        <p class="qn-hint" id="q7-hint">Plusieurs réponses possibles.</p>
+        <div class="chips">
+          <label class="chip"><input type="checkbox" name="disponibilites" value="semaine-soir"><span>Du lundi au jeudi soir</span></label>
+          <label class="chip"><input type="checkbox" name="disponibilites" value="vendredi-soir"><span>Le vendredi soir</span></label>
+          <label class="chip"><input type="checkbox" name="disponibilites" value="samedi-journee"><span>Le samedi en journée</span></label>
+          <label class="chip"><input type="checkbox" name="disponibilites" value="samedi-soir"><span>Le samedi soir</span></label>
+          <label class="chip"><input type="checkbox" name="disponibilites" value="dimanche-journee"><span>Le dimanche en journée</span></label>
+          <label class="chip"><input type="checkbox" name="disponibilites" value="flexible"><span>Mes disponibilités sont assez flexibles</span></label>
+        </div>
+        <p class="qn-error" role="alert" hidden></p>
+      </fieldset>
+
+      <fieldset class="qn-q" data-required aria-describedby="q8-hint">
+        <legend><span class="qn-num" aria-hidden="true">8</span> Confirmes-tu ton envie de participer à cette première
+          édition de chapitrr&nbsp;?</legend>
+        <p class="qn-hint" id="q8-hint">Une seule réponse.</p>
+        <div class="chips">
+          <label class="chip"><input type="radio" name="participation" value="oui" required><span>Oui, je suis partant(e)&nbsp;!</span></label>
+          <label class="chip"><input type="radio" name="participation" value="precisions"><span>L’idée me plaît, mais j’aimerais avoir quelques précisions</span></label>
+          <label class="chip"><input type="radio" name="participation" value="non"><span>Finalement, je préfère ne pas participer cette fois-ci</span></label>
+        </div>
+        <p class="qn-error" role="alert" hidden></p>
+      </fieldset>
+
+      <div class="hp" aria-hidden="true">
+        <label for="qnGotcha">Ne pas remplir ce champ</label>
+        <input id="qnGotcha" name="_gotcha" type="text" tabindex="-1" autocomplete="off">
+      </div>
+
+      <div class="qn-submit">
+        <p class="form-error" id="qnFormError" role="alert" hidden></p>
+        <button class="btn btn-big" type="submit"><span class="btn-label">Envoyer mes réponses</span> <span
+            aria-hidden="true">→</span></button>
+        <p class="privacy-note">Tes réponses servent uniquement à préparer la première édition&nbsp;: choix des livres,
+          composition des groupes et organisation des rencontres. <a href="../confidentialite.html">Politique de
+            confidentialité</a></p>
+      </div>
+    </form>
+
+    <div class="success qn-thanks" id="qnThanks" hidden tabindex="-1">
+      <p class="hand">Merci pour tes réponses&nbsp;!</p>
+      <h2>À très bientôt<span class="js-prenom"></span>.</h2>
+      <p>Elles vont m’aider à préparer une expérience qui donne envie de lire, d’échanger et surtout de se rencontrer.
+        Je reviendrai vers toi prochainement pour la suite de l’aventure.</p>
+      <p class="qn-signature hand">chapitrr.</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <span class="brand">chapitrr<span>.</span></span>
+    <span class="hand">Une histoire avant la rencontre.</span>
+    <span>Auxerre · 2026 · <a href="../confidentialite.html">Confidentialité</a></span>
+  </footer>
+
+  <script src="questionnaire.js"></script>
+</body>
+
+</html>
