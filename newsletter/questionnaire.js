@@ -20,6 +20,29 @@ const prenom = (params.get("prenom") || "").trim().slice(0, 40);
 // La validation est gérée ici, question par question (sans JavaScript, celle du navigateur s'applique)
 form.noValidate = true;
 
+// Barre sous l'en-tête : 0 % en haut de page, 100 % quand le bas du formulaire atteint le bas de l'écran
+const progress = document.querySelector(".qn-progress");
+const progressFill = progress.querySelector(".qn-progress-fill");
+function updateProgress() {
+  if (form.hidden) return;
+  const end = form.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
+  const ratio = end <= 0 ? 1 : Math.min(1, Math.max(0, window.scrollY / end));
+  progressFill.style.transform = `scaleX(${ratio})`;
+  const value = String(Math.round(ratio * 100));
+  if (progress.getAttribute("aria-valuenow") !== value) progress.setAttribute("aria-valuenow", value);
+}
+let progressFrame = 0;
+function onProgressScroll() {
+  if (progressFrame) return;
+  progressFrame = requestAnimationFrame(() => {
+    progressFrame = 0;
+    updateProgress();
+  });
+}
+window.addEventListener("scroll", onProgressScroll, { passive: true });
+window.addEventListener("resize", onProgressScroll);
+updateProgress();
+
 if (participant) {
   document.getElementById("qnParticipant").value = participant;
   identify.hidden = true;
@@ -165,6 +188,7 @@ form.addEventListener("submit", async event => {
   }
 
   form.hidden = true;
+  progress.hidden = true;
   thanks.hidden = false;
   thanks.focus({ preventScroll: true });
   thanks.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
