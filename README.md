@@ -15,7 +15,7 @@ Site statique, sans framework ni étape de build :
 
 ## Mise en production
 
-Sur l'hébergement, n'envoie **que ces fichiers et le dossier `newsletter/`**. Ni `README.md` ni le dossier `.git` : ils seraient lisibles par tout le monde (stratégie de prix, questions du test, historique).
+Sur l'hébergement, n'envoie **que ces fichiers et le dossier `newsletter/`**. Ni `README.md` ni le dossier `.git` : ils seraient lisibles par tout le monde (stratégie de prix, questions du test, historique). N'envoie pas non plus le dossier `admin/` : il contient les emails des inscrits en clair et ne sert qu'en local.
 
 ## Design
 
