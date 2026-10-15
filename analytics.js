@@ -107,7 +107,6 @@
     trackOnce("$pageview");
   }
 
-  // Bandeau de consentement
   const banner = document.createElement("div");
   banner.className = "consent";
   banner.setAttribute("role", "region");
@@ -146,7 +145,6 @@
   if (consent === "granted") start();
   else if (consent === null) banner.hidden = false;
 
-  // Étapes du parcours
   document.addEventListener("chapitrr:quiz-started", () => trackOnce("quiz_started"));
   document.addEventListener("chapitrr:quiz-answered", event => {
     const questionNumber = Number(event.detail && event.detail.questionNumber);

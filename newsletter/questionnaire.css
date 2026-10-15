@@ -1,6 +1,4 @@
-/* Questionnaire des inscrits : complète ../styles.css (même charte que la landing) */
-
-/* Barre collée au bas de l'en-tête : se remplit en descendant le questionnaire */
+/* Complète ../styles.css */
 .qn-progress { display: none; }
 .js .qn-progress {
   position: absolute; left: 0; right: 0; bottom: -2px; z-index: 1;
@@ -24,7 +22,6 @@
 
 .qn-form { position: relative; display: grid; gap: clamp(20px, 3vw, 28px); margin-top: clamp(36px, 5vw, 56px); }
 
-/* Remplacement de la carte : l'ancienne sort, la nouvelle arrive du côté opposé */
 .is-wizard .qn-q.is-arriving,
 .is-wizard .qn-identify.is-arriving {
   animation: qn-arrive .32s cubic-bezier(.16, .84, .28, 1) both;
@@ -51,11 +48,6 @@
   to { opacity: 0; transform: translateX(44px) rotate(.8deg); }
 }
 .is-wizard .qn-submit { position: relative; z-index: 3; }
-@media (prefers-reduced-motion: reduce) {
-  .is-wizard .qn-q.is-arriving,
-  .is-wizard .qn-identify.is-arriving,
-  .qn-ghost { animation: none; }
-}
 .is-wizard .qn-q, .is-wizard .qn-identify { scroll-margin-top: 88px; }
 
 /* Page courte (une question) : le pied de page reste collé en bas de l'écran */

@@ -23,7 +23,6 @@ const prenom = (params.get("prenom") || "").trim().slice(0, 40);
 // La validation est gérée ici, question par question (sans JavaScript, celle du navigateur s'applique)
 form.noValidate = true;
 
-// Barre sous l'en-tête : elle avance avec la question affichée
 const progress = document.querySelector(".qn-progress");
 const progressFill = progress.querySelector(".qn-progress-fill");
 function updateProgress() {
