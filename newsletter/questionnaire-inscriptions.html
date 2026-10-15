@@ -279,8 +279,15 @@
 
       <div class="qn-submit">
         <p class="form-error" id="qnFormError" role="alert" hidden></p>
-        <button class="btn btn-big" type="submit"><span class="btn-label">Envoyer mes réponses</span> <span
-            aria-hidden="true">→</span></button>
+        <div class="qn-actions">
+          <div class="qn-nav">
+            <button class="btn qn-back" type="button" id="qnBack">← Retour</button>
+            <button class="btn btn-big qn-next" type="button" id="qnNext" disabled>Continuer <span
+                aria-hidden="true">→</span></button>
+          </div>
+          <button class="btn btn-big" type="submit"><span class="btn-label">Envoyer mes réponses</span> <span
+              aria-hidden="true">→</span></button>
+        </div>
         <p class="privacy-note">Tes réponses servent uniquement à préparer la première édition&nbsp;: choix des livres,
           composition des groupes et organisation des rencontres. <a href="../confidentialite.html">Politique de
             confidentialité</a></p>
