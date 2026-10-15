@@ -74,7 +74,7 @@ form.querySelectorAll(".qn-q").forEach(group => {
 });
 
 // Rencontrer des personnes « de ma génération » suppose de connaître sa tranche d'âge :
-// « Je préfère ne pas répondre » (question 4) et « plutôt de ma génération » (question 5) s'excluent dès la sélection
+// « Je ne préfère pas répondre » (question 4) et « plutôt de ma génération » (question 5) s'excluent dès la sélection
 const ageUnknown = form.querySelector('input[name="age"][value="non-precise"]');
 const myGeneration = form.querySelector('input[name="generation"][value="ma-generation"]');
 function syncAgeAndGeneration() {
@@ -133,8 +133,8 @@ function buildAnswers() {
   data.append("identification", participant ? "lien" : "email");
   if (prenom) data.append("prenom", prenom);
   // Les choix multiples sont regroupés dans une seule colonne, séparés par des virgules
-  ["genres", "conversation"].forEach(name => data.append(name, raw.getAll(name).join(", ")));
-  ["ambiance", "age", "generation"].forEach(name => data.append(name, raw.get(name)));
+  ["genres", "conversation", "temps_libres", "qualites"].forEach(name => data.append(name, raw.getAll(name).join(", ")));
+  ["ambiance", "age", "generation", "secteur", "enfants", "statut", "energie"].forEach(name => data.append(name, raw.get(name)));
   data.append("sujets_a_eviter", String(raw.get("sujets_a_eviter") || "").trim());
   data.append("disponibilites", raw.getAll("disponibilites").join(", "));
   data.append("participation", raw.get("participation"));

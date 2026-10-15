@@ -43,6 +43,11 @@
 
 .qn-q .chip span { background: var(--paper); }
 .qn-q .chip input:checked + span { background: var(--ink); }
+.qn-q .chip span[aria-hidden] {
+  display: inline; min-height: 0; margin-right: 0.35em; padding: 0;
+  border: 0; border-radius: 0; background: none;
+}
+.chip:hover span[aria-hidden] { transform: none; }
 .qn-q .chip input:disabled + span { opacity: .4; cursor: not-allowed; transform: none; }
 .qn-q .chip input:disabled { cursor: not-allowed; }
 
