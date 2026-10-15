@@ -8,9 +8,12 @@ const thanks = document.getElementById("qnThanks");
 const identify = document.getElementById("qnIdentify");
 const emailInput = document.getElementById("qnEmail");
 const formError = document.getElementById("qnFormError");
+const submitWrap = form.querySelector(".qn-submit");
 const submitBtn = form.querySelector('[type="submit"]');
 const submitLabel = submitBtn.querySelector(".btn-label");
 const submitText = submitLabel.textContent;
+const backBtn = document.getElementById("qnBack");
+const nextBtn = document.getElementById("qnNext");
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const params = new URLSearchParams(window.location.search);
@@ -20,28 +23,16 @@ const prenom = (params.get("prenom") || "").trim().slice(0, 40);
 // La validation est gérée ici, question par question (sans JavaScript, celle du navigateur s'applique)
 form.noValidate = true;
 
-// Barre sous l'en-tête : 0 % en haut de page, 100 % quand le bas du formulaire atteint le bas de l'écran
+// Barre sous l'en-tête : elle avance avec la question affichée
 const progress = document.querySelector(".qn-progress");
 const progressFill = progress.querySelector(".qn-progress-fill");
 function updateProgress() {
-  if (form.hidden) return;
-  const end = form.getBoundingClientRect().bottom + window.scrollY - window.innerHeight;
-  const ratio = end <= 0 ? 1 : Math.min(1, Math.max(0, window.scrollY / end));
+  if (form.hidden || !steps.length) return;
+  const ratio = (index + 1) / steps.length;
   progressFill.style.transform = `scaleX(${ratio})`;
   const value = String(Math.round(ratio * 100));
   if (progress.getAttribute("aria-valuenow") !== value) progress.setAttribute("aria-valuenow", value);
 }
-let progressFrame = 0;
-function onProgressScroll() {
-  if (progressFrame) return;
-  progressFrame = requestAnimationFrame(() => {
-    progressFrame = 0;
-    updateProgress();
-  });
-}
-window.addEventListener("scroll", onProgressScroll, { passive: true });
-window.addEventListener("resize", onProgressScroll);
-updateProgress();
 
 if (participant) {
   document.getElementById("qnParticipant").value = participant;
@@ -74,7 +65,7 @@ form.querySelectorAll(".qn-q").forEach(group => {
 });
 
 // Rencontrer des personnes « de ma génération » suppose de connaître sa tranche d'âge :
-// « Je préfère ne pas répondre » (question 4) et « plutôt de ma génération » (question 5) s'excluent dès la sélection
+// « Je ne préfère pas répondre » (question 4) et « plutôt de ma génération » (question 5) s'excluent dès la sélection
 const ageUnknown = form.querySelector('input[name="age"][value="non-precise"]');
 const myGeneration = form.querySelector('input[name="generation"][value="ma-generation"]');
 function syncAgeAndGeneration() {
@@ -99,7 +90,13 @@ function setError(block, message) {
 form.addEventListener("change", () => {
   form.querySelectorAll(".qn-q.is-invalid").forEach(block => setError(block, errorFor(block)));
 });
-emailInput.addEventListener("input", () => setError(identify, ""));
+emailInput.addEventListener("input", () => {
+  setError(identify, "");
+  if (steps[index] !== identify) return;
+  const ready = !errorFor(identify);
+  nextBtn.disabled = !ready;
+  submitBtn.disabled = !ready;
+});
 
 function errorFor(block) {
   if (block === identify) {
@@ -112,6 +109,90 @@ function errorFor(block) {
   if (count < Number(block.dataset.min || 0)) return "Choisis au moins une réponse.";
   return "";
 }
+
+// Une question à la fois. Retour libre. Continuer seulement si la question affichée a déjà une réponse.
+// La question facultative (sujets à éviter) n'en exige pas : on peut la passer.
+const steps = [...form.querySelectorAll(".qn-identify, .qn-q")].filter(step => !step.hidden);
+let index = 0;
+document.querySelector(".qn").classList.add("is-wizard");
+
+function makeGhost(previous, direction) {
+  document.querySelector(".qn-ghost")?.remove();
+  const ghost = previous.cloneNode(true);
+  ghost.classList.remove("is-arriving", "is-from-back");
+  ghost.classList.add("qn-ghost");
+  if (direction < 0) ghost.classList.add("is-from-back");
+  ghost.setAttribute("aria-hidden", "true");
+  ghost.removeAttribute("id");
+  ghost.querySelectorAll("[id]").forEach(node => node.removeAttribute("id"));
+  ghost.querySelectorAll("input, textarea, button, select").forEach(node => {
+    node.disabled = true;
+    node.removeAttribute("name");
+  });
+  return ghost;
+}
+
+function placeGhost(ghost, step) {
+  form.appendChild(ghost);
+  ghost.style.top = `${step.offsetTop}px`;
+  ghost.style.left = `${step.offsetLeft}px`;
+  ghost.style.width = `${step.offsetWidth}px`;
+  ghost.addEventListener("animationend", event => {
+    if (event.target !== ghost) return;
+    ghost.remove();
+  });
+  window.setTimeout(() => ghost.remove(), 700);
+}
+
+function renderStep(direction) {
+  const step = steps[index];
+  const previous = direction && !reduceMotion
+    ? steps.find(item => !item.hidden && item !== step)
+    : null;
+  const ghost = previous ? makeGhost(previous, direction) : null;
+  const last = index === steps.length - 1;
+  steps.forEach((item, i) => { item.hidden = i !== index; });
+  step.classList.remove("is-arriving", "is-from-back");
+  if (ghost) placeGhost(ghost, step);
+  if (direction && !reduceMotion) {
+    void step.offsetWidth;
+    step.classList.add("is-arriving");
+    if (direction < 0) step.classList.add("is-from-back");
+  }
+  submitWrap.classList.toggle("is-last", last);
+  backBtn.hidden = index === 0;
+  const ready = !errorFor(step);
+  nextBtn.disabled = !ready;
+  submitBtn.disabled = !ready;
+  updateProgress();
+  if (!direction) return;
+  step.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "start" });
+  const field = step.querySelector("input:not(:disabled), textarea");
+  if (field) field.focus({ preventScroll: true });
+}
+
+function goNext() {
+  const message = errorFor(steps[index]);
+  setError(steps[index], message);
+  if (message || index >= steps.length - 1) return;
+  index += 1;
+  renderStep(1);
+}
+
+function goBack() {
+  if (index === 0) return;
+  index -= 1;
+  renderStep(-1);
+}
+
+backBtn.addEventListener("click", goBack);
+nextBtn.addEventListener("click", goNext);
+form.addEventListener("change", () => {
+  const ready = !errorFor(steps[index]);
+  nextBtn.disabled = !ready;
+  submitBtn.disabled = !ready;
+});
+renderStep(false);
 
 // Renvoie la première question sans réponse, dans l'ordre de la page
 function validate() {
@@ -133,8 +214,8 @@ function buildAnswers() {
   data.append("identification", participant ? "lien" : "email");
   if (prenom) data.append("prenom", prenom);
   // Les choix multiples sont regroupés dans une seule colonne, séparés par des virgules
-  ["genres", "conversation"].forEach(name => data.append(name, raw.getAll(name).join(", ")));
-  ["ambiance", "age", "generation"].forEach(name => data.append(name, raw.get(name)));
+  ["genres", "conversation", "temps_libres", "qualites"].forEach(name => data.append(name, raw.getAll(name).join(", ")));
+  ["ambiance", "age", "generation", "secteur", "enfants", "statut", "energie"].forEach(name => data.append(name, raw.get(name)));
   data.append("sujets_a_eviter", String(raw.get("sujets_a_eviter") || "").trim());
   data.append("disponibilites", raw.getAll("disponibilites").join(", "));
   data.append("participation", raw.get("participation"));
@@ -165,11 +246,18 @@ function setSending(sending) {
 form.addEventListener("submit", async event => {
   event.preventDefault();
   formError.hidden = true;
+  if (index < steps.length - 1) {
+    goNext();
+    return;
+  }
 
   const invalid = validate();
   if (invalid) {
-    invalid.scrollIntoView({ behavior: reduceMotion ? "auto" : "smooth", block: "center" });
-    invalid.querySelector("input, textarea").focus({ preventScroll: true });
+    const target = steps.indexOf(invalid);
+    const direction = Math.sign(target - index) || 1;
+    index = target;
+    renderStep(direction);
+    setError(invalid, errorFor(invalid));
     return;
   }
 
