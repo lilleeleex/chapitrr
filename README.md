@@ -176,7 +176,7 @@ Le lien n'est pas un mot de passe : quelqu'un qui le reçoit peut répondre à l
 | `participant` | l'`id` du lien, ou l'email saisi si le lien n'en contient pas |
 | `identification` | `lien` ou `email` |
 | `prenom` | le prénom du lien, s'il y en a un |
-| `genres` | jusqu'à 3 parmi `contemporain`, `histoires-vraies`, `policier`, `science-fiction`, `fantasy`, `romance`, `aventure`, `humour`, `historique`, `classiques`, séparés par des virgules ; ou `surprise` seul |
+| `genres` | jusqu'à 3 parmi `contemporain`, `histoires-vraies`, `policier`, `science-fiction`, `fantasy`, `romance`, `aventure`, `humour`, `historique`, `classiques`, `entrepreneuriat`, `developpement-personnel`, séparés par des virgules ; ou `surprise` seul |
 | `conversation` | jusqu'à 3 parmi `decortiquer-livre`, `anecdotes`, `parcours`, `points-de-vue`, `passions`, `projets` ; ou `un-peu-de-tout` seul |
 | `ambiance` | `detendue`, `chaleureuse`, `curieuse`, `melange`, `surprise` |
 | `age` | `18-24`, `25-34`, `35-44`, `45-54`, `55-64`, `65-plus`, `non-precise` |
